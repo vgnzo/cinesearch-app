@@ -18,54 +18,15 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 40px 24px 60px;
-  }
-
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 24px 60px; }
   h1 { font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: 4px; text-align: center; margin-bottom: 4px; }
   h1 span { color: var(--red); text-shadow: 0 0 20px var(--red-glow); }
-
   .subtitle { text-align: center; color: var(--muted); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 24px; }
 
-  /* ── BOTÃO VOLTAR ── */
-  .nav-topo {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 32px;
-  }
-
-  .btn-voltar {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 20px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .btn-voltar:hover {
-    border-color: var(--red);
-    color: var(--text);
-  }
-
-  .btn-voltar svg {
-    width: 14px;
-    height: 14px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-  }
+  .nav-topo { display: flex; justify-content: center; margin-bottom: 32px; }
+  .btn-voltar { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; border: 1px solid var(--border); border-radius: 20px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 13px; letter-spacing: 1px; text-decoration: none; transition: all 0.2s; }
+  .btn-voltar:hover { border-color: var(--red); color: var(--text); }
+  .btn-voltar svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
 
   .diagram { max-width: 900px; margin: 0 auto; }
   .level-center { text-align: center; margin-bottom: 24px; }
@@ -86,20 +47,25 @@
   .actor-leg:first-child { transform: rotate(-10deg); }
   .actor-name { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 2px; color: #60a5fa; text-align: center; margin-top: 4px; }
 
-  .connections { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+  .connections { display: flex; flex-direction: column; gap: 9px; flex-shrink: 0; }
   .conn-line { width: 40px; height: 2px; background: linear-gradient(to right, rgba(96,165,250,0.4), rgba(229,9,20,0.4)); }
 
-  .uc-list { display: flex; flex-direction: column; gap: 12px; flex: 1; }
-  .uc-item { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 50px; padding: 12px 20px; transition: border-color 0.2s, transform 0.2s; cursor: default; }
+  .uc-list { display: flex; flex-direction: column; gap: 9px; flex: 1; }
+  .uc-item { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 50px; padding: 10px 20px; transition: border-color 0.2s, transform 0.2s; cursor: default; }
   .uc-item:hover { border-color: rgba(229,9,20,0.4); transform: translateX(4px); }
+
+  /* 🆕 destaque para UCs de autenticação */
+  .uc-item.auth { border-color: rgba(96,165,250,0.2); }
+  .uc-item.auth:hover { border-color: rgba(96,165,250,0.5); }
+
   .uc-code { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 2px; color: var(--red); background: rgba(229,9,20,0.1); border: 1px solid rgba(229,9,20,0.2); border-radius: 4px; padding: 2px 8px; flex-shrink: 0; }
+  .uc-code.blue { color: #60a5fa; background: rgba(96,165,250,0.1); border-color: rgba(96,165,250,0.2); }
   .uc-icon { font-size: 18px; flex-shrink: 0; }
   .uc-text { flex: 1; }
   .uc-name { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; margin-bottom: 2px; }
   .uc-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
 
   .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
-
   .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
   .detail-table th { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 2px; color: var(--red); text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); background: rgba(229,9,20,0.05); }
   .detail-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.5; }
@@ -107,7 +73,6 @@
   .detail-table tr:hover td { background: var(--bg3); }
   .detail-table td:first-child { color: var(--red); font-family: 'Bebas Neue'; font-size: 14px; letter-spacing: 1px; white-space: nowrap; }
   .detail-table td:nth-child(2) { color: var(--text); font-weight: 500; }
-
   .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; }
   .tag-front { background: rgba(59,130,246,0.15); color: #60a5fa; }
   .tag-back  { background: rgba(229,9,20,0.15);   color: #f87171; }
@@ -146,14 +111,23 @@
       <div class="connections">
         <div class="conn-line"></div><div class="conn-line"></div><div class="conn-line"></div>
         <div class="conn-line"></div><div class="conn-line"></div><div class="conn-line"></div>
+        <div class="conn-line"></div><div class="conn-line"></div><div class="conn-line"></div>
       </div>
       <div class="uc-list">
-        <div class="uc-item"><span class="uc-code">UC01</span><span class="uc-icon">➕</span><div class="uc-text"><div class="uc-name">Cadastrar Filme</div><div class="uc-desc">Preenche formulário com título, gênero, ano e sinopse</div></div></div>
+
+        <!-- Filmes -->
+        <div class="uc-item"><span class="uc-code">UC01</span><span class="uc-icon">➕</span><div class="uc-text"><div class="uc-name">Cadastrar Filme</div><div class="uc-desc">Preenche formulário com título, gênero, ano e sinopse — requer login</div></div></div>
         <div class="uc-item"><span class="uc-code">UC02</span><span class="uc-icon">🔍</span><div class="uc-text"><div class="uc-name">Buscar Filme</div><div class="uc-desc">Digita termo e busca em título, gênero e sinopse</div></div></div>
         <div class="uc-item"><span class="uc-code">UC03</span><span class="uc-icon">🏷️</span><div class="uc-text"><div class="uc-name">Filtrar por Gênero</div><div class="uc-desc">Clica em um chip de gênero para filtrar os filmes</div></div></div>
         <div class="uc-item"><span class="uc-code">UC04</span><span class="uc-icon">🎬</span><div class="uc-text"><div class="uc-name">Ver Todos os Filmes</div><div class="uc-desc">Lista todos os filmes cadastrados no banco</div></div></div>
-        <div class="uc-item"><span class="uc-code">UC05</span><span class="uc-icon">✏️</span><div class="uc-text"><div class="uc-name">Editar Filme</div><div class="uc-desc">Altera os dados de um filme já cadastrado</div></div></div>
-        <div class="uc-item"><span class="uc-code">UC06</span><span class="uc-icon">🗑️</span><div class="uc-text"><div class="uc-name">Deletar Filme</div><div class="uc-desc">Remove permanentemente um filme do catálogo</div></div></div>
+        <div class="uc-item"><span class="uc-code">UC05</span><span class="uc-icon">✏️</span><div class="uc-text"><div class="uc-name">Editar Filme</div><div class="uc-desc">Altera os dados de um filme — somente o autor pode editar</div></div></div>
+        <div class="uc-item"><span class="uc-code">UC06</span><span class="uc-icon">🗑️</span><div class="uc-text"><div class="uc-name">Deletar Filme</div><div class="uc-desc">Remove um filme — somente o autor pode deletar</div></div></div>
+
+        <!-- 🆕 Autenticação -->
+        <div class="uc-item auth"><span class="uc-code blue">UC07</span><span class="uc-icon">📝</span><div class="uc-text"><div class="uc-name">Registrar Usuário</div><div class="uc-desc">Cria uma conta com nome, email e senha criptografada</div></div></div>
+        <div class="uc-item auth"><span class="uc-code blue">UC08</span><span class="uc-icon">🔑</span><div class="uc-text"><div class="uc-name">Fazer Login</div><div class="uc-desc">Autentica com email e senha, recebe token JWT</div></div></div>
+        <div class="uc-item auth"><span class="uc-code blue">UC09</span><span class="uc-icon">🚪</span><div class="uc-text"><div class="uc-name">Fazer Logout</div><div class="uc-desc">Remove o token do navegador e encerra a sessão</div></div></div>
+
       </div>
     </div>
   </div>
@@ -171,7 +145,7 @@
       <tbody>
         <tr>
           <td>UC01</td><td>Cadastrar Filme</td>
-          <td>Usuário preenche o formulário → Frontend valida os campos → Backend recebe via POST → Elasticsearch cria documento com _id automático</td>
+          <td>Usuário (logado) preenche formulário → Frontend envia POST com token JWT → Backend valida token + regras → Elasticsearch cria documento com autor_id</td>
           <td><span class="tag tag-front">Front</span> <span class="tag tag-back">Back</span> <span class="tag tag-db">DB</span></td>
         </tr>
         <tr>
@@ -191,13 +165,28 @@
         </tr>
         <tr>
           <td>UC05</td><td>Editar Filme</td>
-          <td>Usuário clica em Editar → Formulário é preenchido com os dados → Usuário altera e salva → Backend envia PUT com o _id → Elasticsearch substitui o documento</td>
+          <td>Usuário clica em Editar → Formulário preenchido → Salva com token → Backend verifica se autor_id = usuário logado → Elasticsearch atualiza documento</td>
           <td><span class="tag tag-front">Front</span> <span class="tag tag-back">Back</span> <span class="tag tag-db">DB</span></td>
         </tr>
         <tr>
           <td>UC06</td><td>Deletar Filme</td>
-          <td>Usuário clica em Deletar → Frontend confirma a ação → Backend envia DELETE com o _id → Elasticsearch remove o documento permanentemente</td>
+          <td>Usuário clica em Deletar → Frontend envia DELETE com token → Backend verifica se autor_id = usuário logado → Elasticsearch remove permanentemente</td>
           <td><span class="tag tag-front">Front</span> <span class="tag tag-back">Back</span> <span class="tag tag-db">DB</span></td>
+        </tr>
+        <tr>
+          <td>UC07</td><td>Registrar Usuário</td>
+          <td>Usuário preenche nome, email e senha → Backend valida campos → bcrypt criptografa a senha → Elasticsearch salva no índice "usuarios"</td>
+          <td><span class="tag tag-front">Front</span> <span class="tag tag-back">Back</span> <span class="tag tag-db">DB</span></td>
+        </tr>
+        <tr>
+          <td>UC08</td><td>Fazer Login</td>
+          <td>Usuário informa email e senha → Backend busca usuário no ES → bcrypt compara senhas → JWT gera token → Frontend salva token no localStorage</td>
+          <td><span class="tag tag-front">Front</span> <span class="tag tag-back">Back</span> <span class="tag tag-db">DB</span></td>
+        </tr>
+        <tr>
+          <td>UC09</td><td>Fazer Logout</td>
+          <td>Usuário clica em Sair → Frontend remove token e dados do localStorage → UI atualizada para estado deslogado</td>
+          <td><span class="tag tag-front">Front</span></td>
         </tr>
       </tbody>
     </table>

@@ -58,538 +58,137 @@
             box-shadow: 0 0 20px var(--red-glow);
         }
 
-        .logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(48px, 8vw, 80px);
-            letter-spacing: 6px;
-            color: var(--text);
-            position: relative;
-            display: inline-block;
-        }
+        .logo { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 8vw, 80px); letter-spacing: 6px; color: var(--text); display: inline-block; }
+        .logo span { color: var(--red); text-shadow: 0 0 30px var(--red-glow); }
+        .tagline { color: var(--muted); font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-top: 8px; }
 
-        .logo span {
-            color: var(--red);
-            text-shadow: 0 0 30px var(--red-glow);
-        }
+        /* ── NAV ── */
+        .header-nav { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
 
-        .tagline {
-            color: var(--muted);
-            font-size: 13px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-top: 8px;
-        }
+        .nav-link { padding: 6px 18px; border: 1px solid var(--border); border-radius: 20px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 1px; text-decoration: none; transition: all 0.2s; }
+        .nav-link:hover { border-color: var(--red); color: var(--text); }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 50px 24px;
-            position: relative;
-            z-index: 1;
-            display: grid;
-            grid-template-columns: 340px 1fr;
-            gap: 32px;
-            align-items: start;
-        }
+        .btn-login-acesso { padding: 6px 18px; border: 1px solid var(--red); border-radius: 20px; color: var(--red); background: transparent; font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; }
+        .btn-login-acesso:hover { background: var(--red); color: white; }
 
-        .sidebar {
-            position: sticky;
-            top: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
+        /* ── INFO USUÁRIO LOGADO ── */
+        .user-info { display: none; align-items: center; gap: 10px; padding: 6px 16px; background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; font-size: 13px; color: var(--muted); }
+        .user-info .user-nome { color: var(--text); font-weight: 500; }
+        .btn-sair { background: transparent; border: 1px solid rgba(229,9,20,0.4); color: var(--red); border-radius: 12px; padding: 3px 10px; font-size: 11px; cursor: pointer; font-family: 'DM Sans', sans-serif; letter-spacing: 1px; transition: all 0.2s; }
+        .btn-sair:hover { background: var(--red); color: white; }
 
-        .card {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
-            animation: fadeUp 0.5s ease both;
-        }
+        /* ── MODAL ── */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
+        .modal-overlay.ativo { display: flex; }
+        .modal { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 36px; width: 100%; max-width: 420px; animation: fadeUp 0.3s ease; }
+        .modal-titulo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; color: var(--text); margin-bottom: 24px; text-align: center; }
+        .modal-tabs { display: flex; margin-bottom: 24px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .modal-tab { flex: 1; padding: 10px; background: transparent; border: none; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 13px; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; }
+        .modal-tab.ativo { background: var(--red); color: white; }
+        .modal-form { display: none; }
+        .modal-form.ativo { display: block; }
+        .modal-msg { margin-top: 12px; font-size: 13px; text-align: center; min-height: 20px; color: #4ade80; }
+        .modal-msg.erro { color: #f87171; }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--red), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
+        /* ── LAYOUT ── */
+        .container { max-width: 1100px; margin: 0 auto; padding: 50px 24px; position: relative; z-index: 1; display: grid; grid-template-columns: 340px 1fr; gap: 32px; align-items: start; }
+        .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 16px; }
 
+        .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; position: relative; overflow: hidden; animation: fadeUp 0.5s ease both; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); opacity: 0; transition: opacity 0.3s; }
         .card:hover::before { opacity: 1; }
 
-        .card-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 22px;
-            letter-spacing: 2px;
-            color: var(--red);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        .card-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--red); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         .card-title svg { width: 18px; height: 18px; fill: none; stroke: var(--red); stroke-width: 2; }
 
+        /* aviso de login */
+        .aviso-login { display: none; text-align: center; padding: 20px 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+        .aviso-login button { display: inline-block; margin-top: 12px; padding: 8px 20px; background: var(--red); color: white; border: none; border-radius: 8px; font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1px; cursor: pointer; }
+        .aviso-login button:hover { background: #ff1a25; }
+
         .field { margin-bottom: 14px; }
-
-        .field label {
-            display: block;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 6px;
-        }
-
-        .field input,
-        .field select,
-        .field textarea {
-            width: 100%;
-            background: var(--bg3);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 11px 14px;
-            color: var(--text);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            outline: none;
-            appearance: none;
-        }
-
-        .field select {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-            cursor: pointer;
-        }
-
-        .field input:focus,
-        .field select:focus,
-        .field textarea:focus {
-            border-color: var(--red);
-            box-shadow: 0 0 0 3px var(--red-glow);
-        }
-
+        .field label { display: block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+        .field input, .field select, .field textarea { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; transition: border-color 0.2s, box-shadow 0.2s; outline: none; appearance: none; }
+        .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; cursor: pointer; }
+        .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--red); box-shadow: 0 0 0 3px var(--red-glow); }
         .field textarea { resize: vertical; min-height: 90px; }
 
-        .btn {
-            width: 100%;
-            padding: 13px;
-            background: var(--red);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 18px;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-            margin-top: 4px;
-        }
-
-        .btn:hover {
-            background: #ff1a25;
-            box-shadow: 0 4px 20px var(--red-glow);
-        }
-
+        .btn { width: 100%; padding: 13px; background: var(--red); color: white; border: none; border-radius: 8px; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; cursor: pointer; transition: background 0.2s, transform 0.1s, box-shadow 0.2s; margin-top: 4px; }
+        .btn:hover { background: #ff1a25; box-shadow: 0 4px 20px var(--red-glow); }
         .btn:active { transform: scale(0.98); }
 
-        .btn-cancelar {
-            width: 100%;
-            padding: 10px;
-            background: transparent;
-            color: var(--muted);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 13px;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-top: 8px;
-            display: none;
-        }
+        .btn-cancelar { width: 100%; padding: 10px; background: transparent; color: var(--muted); border: 1px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13px; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; margin-top: 8px; display: none; }
+        .btn-cancelar:hover { border-color: var(--muted); color: var(--text); }
 
-        .btn-cancelar:hover {
-            border-color: var(--muted);
-            color: var(--text);
-        }
-
-        .msg {
-            margin-top: 12px;
-            font-size: 13px;
-            text-align: center;
-            min-height: 20px;
-            color: #4ade80;
-        }
-
+        .msg { margin-top: 12px; font-size: 13px; text-align: center; min-height: 20px; color: #4ade80; }
         .msg.erro { color: #f87171; }
 
-        .main {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .search-bar {
-            display: flex;
-            gap: 10px;
-            animation: fadeUp 0.5s ease 0.1s both;
-        }
-
-        .search-bar input {
-            flex: 1;
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 14px 18px;
-            color: var(--text);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .search-bar input:focus {
-            border-color: var(--red);
-            box-shadow: 0 0 0 3px var(--red-glow);
-        }
-
+        /* ── MAIN ── */
+        .main { display: flex; flex-direction: column; gap: 20px; }
+        .search-bar { display: flex; gap: 10px; animation: fadeUp 0.5s ease 0.1s both; }
+        .search-bar input { flex: 1; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+        .search-bar input:focus { border-color: var(--red); box-shadow: 0 0 0 3px var(--red-glow); }
         .search-bar input::placeholder { color: var(--muted); }
+        .btn-search { padding: 14px 22px; background: var(--red); color: white; border: none; border-radius: 10px; font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 1px; cursor: pointer; transition: background 0.2s, box-shadow 0.2s; white-space: nowrap; }
+        .btn-search:hover { background: #ff1a25; box-shadow: 0 4px 20px var(--red-glow); }
+        .btn-all { padding: 14px 18px; background: transparent; color: var(--muted); border: 1px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+        .btn-all:hover { border-color: var(--red); color: var(--text); }
 
-        .btn-search {
-            padding: 14px 22px;
-            background: var(--red);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 17px;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: background 0.2s, box-shadow 0.2s;
-            white-space: nowrap;
-        }
+        .genre-chips { display: flex; flex-wrap: wrap; gap: 8px; animation: fadeUp 0.5s ease 0.15s both; }
+        .chip { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 12px; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+        .chip:hover, .chip.active { background: var(--red); border-color: var(--red); color: white; }
 
-        .btn-search:hover {
-            background: #ff1a25;
-            box-shadow: 0 4px 20px var(--red-glow);
-        }
-
-        .btn-all {
-            padding: 14px 18px;
-            background: transparent;
-            color: var(--muted);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 13px;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .btn-all:hover {
-            border-color: var(--red);
-            color: var(--text);
-        }
-
-        .genre-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            animation: fadeUp 0.5s ease 0.15s both;
-        }
-
-        .chip {
-            padding: 6px 14px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--muted);
-            font-size: 12px;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        .chip:hover, .chip.active {
-            background: var(--red);
-            border-color: var(--red);
-            color: white;
-        }
-
-        .results-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            animation: fadeUp 0.5s ease 0.2s both;
-        }
-
-        .results-count {
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-
+        .results-header { display: flex; align-items: center; justify-content: space-between; animation: fadeUp 0.5s ease 0.2s both; }
+        .results-count { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
         .results-count span { color: var(--red); font-weight: 500; }
 
-        #resultados {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        #resultados { display: flex; flex-direction: column; gap: 12px; }
 
-        .filme {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 22px 24px;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 12px;
-            align-items: start;
-            transition: border-color 0.2s, transform 0.2s;
-            animation: fadeUp 0.4s ease both;
-        }
+        .filme { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start; transition: border-color 0.2s, transform 0.2s; animation: fadeUp 0.4s ease both; }
+        .filme:hover { border-color: rgba(229, 9, 20, 0.4); transform: translateY(-2px); }
+        .filme-info h3 { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; color: var(--text); margin-bottom: 6px; }
+        .filme-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+        .badge { padding: 3px 10px; border-radius: 4px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; }
+        .badge-genero { background: rgba(229, 9, 20, 0.15); border: 1px solid rgba(229, 9, 20, 0.3); color: #ff6b6b; }
+        .badge-ano { background: var(--bg3); border: 1px solid var(--border); color: var(--muted); }
+        .badge-autor { background: var(--bg3); border: 1px solid var(--border); color: var(--muted); font-size: 10px; } /* 🆕 */
+        .filme-sinopse { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+        .filme-acoes { display: flex; gap: 8px; margin-top: 4px; }
+        .btn-editar { padding: 6px 16px; background: transparent; border: 1px solid rgba(229, 9, 20, 0.5); color: var(--red); border-radius: 6px; cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 1px; transition: all 0.2s; }
+        .btn-editar:hover { background: rgba(229, 9, 20, 0.1); border-color: var(--red); }
+        .btn-deletar { padding: 6px 16px; background: rgba(229, 9, 20, 0.15); border: 1px solid rgba(229, 9, 20, 0.3); color: #ff6b6b; border-radius: 6px; cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 1px; transition: all 0.2s; }
+        .btn-deletar:hover { background: var(--red); border-color: var(--red); color: white; }
+        .filme-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--border); line-height: 1; letter-spacing: 2px; user-select: none; }
 
-        .filme:hover {
-            border-color: rgba(229, 9, 20, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .filme-info h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 22px;
-            letter-spacing: 1px;
-            color: var(--text);
-            margin-bottom: 6px;
-        }
-
-        .filme-meta {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-
-        .badge-genero {
-            background: rgba(229, 9, 20, 0.15);
-            border: 1px solid rgba(229, 9, 20, 0.3);
-            color: #ff6b6b;
-        }
-
-        .badge-ano {
-            background: var(--bg3);
-            border: 1px solid var(--border);
-            color: var(--muted);
-        }
-
-        .filme-sinopse {
-            font-size: 13.5px;
-            color: var(--muted);
-            line-height: 1.6;
-            margin-bottom: 14px;
-        }
-
-        .filme-acoes {
-            display: flex;
-            gap: 8px;
-            margin-top: 4px;
-        }
-
-        .btn-editar {
-            padding: 6px 16px;
-            background: transparent;
-            border: 1px solid rgba(229, 9, 20, 0.5);
-            color: var(--red);
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 14px;
-            letter-spacing: 1px;
-            transition: all 0.2s;
-        }
-
-        .btn-editar:hover {
-            background: rgba(229, 9, 20, 0.1);
-            border-color: var(--red);
-        }
-
-        .btn-deletar {
-            padding: 6px 16px;
-            background: rgba(229, 9, 20, 0.15);
-            border: 1px solid rgba(229, 9, 20, 0.3);
-            color: #ff6b6b;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 14px;
-            letter-spacing: 1px;
-            transition: all 0.2s;
-        }
-
-        .btn-deletar:hover {
-            background: var(--red);
-            border-color: var(--red);
-            color: white;
-        }
-
-        .filme-num {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 36px;
-            color: var(--border);
-            line-height: 1;
-            letter-spacing: 2px;
-            user-select: none;
-        }
-
-        .empty {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--muted);
-        }
-
-        .empty svg {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 16px;
-            opacity: 0.3;
-        }
-
+        .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+        .empty svg { width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.3; }
         .empty p { font-size: 14px; letter-spacing: 1px; }
 
         .card.editando { border-color: rgba(229, 9, 20, 0.4); }
         .card.editando::before { opacity: 1; }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ── NAV ── */
-        .header-nav {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .nav-link {
-            padding: 6px 18px;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            color: var(--muted);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 12px;
-            letter-spacing: 1px;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .nav-link:hover {
-            border-color: var(--red);
-            color: var(--text);
-        }
-
-        /* ── RESPONSIVO MOBILE ── */
+        /* ── MOBILE ── */
         @media (max-width: 768px) {
             header { padding: 36px 20px 28px; }
-
             .tagline { font-size: 11px; letter-spacing: 2px; }
-
-            .container {
-                grid-template-columns: 1fr;
-                padding: 24px 16px;
-                gap: 24px;
-            }
-
+            .container { grid-template-columns: 1fr; padding: 24px 16px; gap: 24px; }
             .sidebar { position: static; }
-
-            /* Barra de busca: input em cima, botões embaixo lado a lado */
-            .search-bar {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .search-bar input {
-                width: 100%;
-                font-size: 16px; /* evita zoom automático no iOS */
-            }
-
-            .search-bar-buttons {
-                display: flex;
-                gap: 8px;
-            }
-
-            .btn-search {
-                flex: 1;
-                padding: 13px;
-                font-size: 15px;
-            }
-
-            .btn-all {
-                flex: 1;
-                padding: 13px;
-                font-size: 13px;
-                text-align: center;
-            }
-
-            /* Chips de gênero menores */
-            .chip {
-                padding: 5px 12px;
-                font-size: 11px;
-            }
-
-            /* Card de filme: esconde o número decorativo no mobile */
+            .search-bar { flex-direction: column; gap: 8px; }
+            .search-bar input { width: 100%; font-size: 16px; }
+            .search-bar-buttons { display: flex; gap: 8px; }
+            .btn-search { flex: 1; padding: 13px; font-size: 15px; }
+            .btn-all { flex: 1; padding: 13px; font-size: 13px; text-align: center; }
+            .chip { padding: 5px 12px; font-size: 11px; }
             .filme-num { display: none; }
-
-            .filme {
-                grid-template-columns: 1fr;
-                padding: 18px;
-            }
-
+            .filme { grid-template-columns: 1fr; padding: 18px; }
             .filme-info h3 { font-size: 20px; }
-
-            /* Botões editar/deletar maiores no touch */
-            .btn-editar,
-            .btn-deletar {
-                padding: 8px 18px;
-                font-size: 13px;
-            }
-
-            /* Inputs maiores para toque */
-            .field input,
-            .field select,
-            .field textarea {
-                font-size: 16px; /* evita zoom automático no iOS */
-                padding: 13px 14px;
-            }
+            .btn-editar, .btn-deletar { padding: 8px 18px; font-size: 13px; }
+            .field input, .field select, .field textarea { font-size: 16px; padding: 13px 14px; }
         }
 
-        @media (max-width: 400px) {
-            .logo { letter-spacing: 3px; }
-            .container { padding: 20px 12px; }
-        }
+        @media (max-width: 400px) { .logo { letter-spacing: 3px; } .container { padding: 20px 12px; } }
     </style>
 </head>
 <body>
@@ -600,205 +199,265 @@
     <nav class="header-nav">
         <a href="/casos-de-uso.html" class="nav-link">Casos de Uso</a>
         <a href="/diagrama-c4.html" class="nav-link">Diagrama C4</a>
+        <!-- 🆕 Botão de acesso (troca com info do usuário) -->
+        <button class="btn-login-acesso" id="btnAbrirLogin" onclick="abrirModal()">ENTRAR / CADASTRAR</button>
+        <div class="user-info" id="userInfo">
+            Olá, <span class="user-nome" id="userNome"></span>
+            <button class="btn-sair" onclick="sair()">SAIR</button>
+        </div>
     </nav>
 </header>
 
-<div class="container">
+<!-- 🆕 MODAL LOGIN / REGISTRO -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <div class="modal-titulo">CINE<span style="color:var(--red)">SEARCH</span></div>
+        <div class="modal-tabs">
+            <button class="modal-tab ativo" id="tabLogin" onclick="trocarTab('login')">ENTRAR</button>
+            <button class="modal-tab" id="tabRegistro" onclick="trocarTab('registro')">CADASTRAR</button>
+        </div>
+        <!-- Login -->
+        <div class="modal-form ativo" id="formLogin">
+            <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="seu@email.com" /></div>
+            <div class="field"><label>Senha</label><input type="password" id="loginSenha" placeholder="Sua senha" /></div>
+            <button class="btn" onclick="fazerLogin()">ENTRAR</button>
+            <p class="modal-msg" id="msgLogin"></p>
+        </div>
+        <!-- Registro -->
+        <div class="modal-form" id="formRegistro">
+            <div class="field"><label>Nome</label><input type="text" id="regNome" placeholder="Seu nome" /></div>
+            <div class="field"><label>Email</label><input type="email" id="regEmail" placeholder="seu@email.com" /></div>
+            <div class="field"><label>Senha (mínimo 6 caracteres)</label><input type="password" id="regSenha" placeholder="Crie uma senha" /></div>
+            <button class="btn" onclick="fazerRegistro()">CADASTRAR</button>
+            <p class="modal-msg" id="msgRegistro"></p>
+        </div>
+    </div>
+</div>
 
+<div class="container">
     <aside class="sidebar">
         <div class="card" id="formCard">
             <div class="card-title">
                 <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
                 <span id="formTitulo">Cadastrar Filme</span>
             </div>
-
-            <input type="hidden" id="editandoId" value="" />
-
-            <div class="field">
-                <label>Título</label>
-                <input type="text" id="titulo" placeholder="Ex: O Poderoso Chefão" />
+            <!-- 🆕 Aviso quando deslogado -->
+            <div class="aviso-login" id="avisoLogin">
+                <p>Faça login para cadastrar filmes.</p>
+                <button onclick="abrirModal()">ENTRAR / CADASTRAR</button>
             </div>
-
-            <div class="field">
-                <label>Gênero</label>
-                <select id="genero">
-                    <option value="">Selecione...</option>
-                    <option>Ação</option>
-                    <option>Aventura</option>
-                    <option>Animação</option>
-                    <option>Comédia</option>
-                    <option>Crime</option>
-                    <option>Documentário</option>
-                    <option>Drama</option>
-                    <option>Fantasia</option>
-                    <option>Ficção Científica</option>
-                    <option>Horror</option>
-                    <option>Musical</option>
-                    <option>Romance</option>
-                    <option>Suspense</option>
-                    <option>Terror</option>
-                    <option>Western</option>
-                </select>
+            <!-- Formulário (só aparece logado) -->
+            <div id="formCampos">
+                <input type="hidden" id="editandoId" value="" />
+                <div class="field"><label>Título</label><input type="text" id="titulo" placeholder="Ex: O Poderoso Chefão" /></div>
+                <div class="field">
+                    <label>Gênero</label>
+                    <select id="genero">
+                        <option value="">Selecione...</option>
+                        <option>Ação</option><option>Aventura</option><option>Animação</option>
+                        <option>Comédia</option><option>Crime</option><option>Documentário</option>
+                        <option>Drama</option><option>Fantasia</option><option>Ficção Científica</option>
+                        <option>Horror</option><option>Musical</option><option>Romance</option>
+                        <option>Suspense</option><option>Terror</option><option>Western</option>
+                    </select>
+                </div>
+                <div class="field"><label>Ano</label><input type="number" id="ano" placeholder="Ex: 1994" min="1888" max="2099" /></div>
+                <div class="field"><label>Sinopse</label><textarea id="sinopse" placeholder="Descreva o filme (mín. 10 caracteres)..."></textarea></div>
+                <button class="btn" id="btnSubmit" onclick="salvar()">CADASTRAR FILME</button>
+                <button class="btn-cancelar" id="btnCancelar" onclick="cancelarEdicao()">CANCELAR EDIÇÃO</button>
+                <p class="msg" id="msg"></p>
             </div>
-
-            <div class="field">
-                <label>Ano</label>
-                <input type="number" id="ano" placeholder="Ex: 1994" min="1900" max="2099" />
-            </div>
-
-            <div class="field">
-                <label>Sinopse</label>
-                <textarea id="sinopse" placeholder="Descreva o filme..."></textarea>
-            </div>
-
-            <button class="btn" id="btnSubmit" onclick="salvar()">CADASTRAR FILME</button>
-            <button class="btn-cancelar" id="btnCancelar" onclick="cancelarEdicao()">CANCELAR EDIÇÃO</button>
-            <p class="msg" id="msg"></p>
         </div>
     </aside>
 
     <main class="main">
-
         <div class="search-bar">
-            <input type="text" id="busca" placeholder="Buscar por título, gênero ou sinopse..."
-                onkeydown="if(event.key==='Enter') buscar()" />
+            <input type="text" id="busca" placeholder="Buscar por título, gênero ou sinopse..." onkeydown="if(event.key==='Enter') buscar()" />
             <div class="search-bar-buttons">
                 <button class="btn-search" onclick="buscar()">BUSCAR</button>
                 <button class="btn-all" onclick="buscar('')">VER TODOS</button>
             </div>
         </div>
-
         <div class="genre-chips">
-            <button class="chip" onclick="buscarGenero(this, 'Ação')">Ação</button>
-            <button class="chip" onclick="buscarGenero(this, 'Aventura')">Aventura</button>
-            <button class="chip" onclick="buscarGenero(this, 'Comédia')">Comédia</button>
-            <button class="chip" onclick="buscarGenero(this, 'Crime')">Crime</button>
-            <button class="chip" onclick="buscarGenero(this, 'Drama')">Drama</button>
-            <button class="chip" onclick="buscarGenero(this, 'Fantasia')">Fantasia</button>
-            <button class="chip" onclick="buscarGenero(this, 'Ficção Científica')">Ficção Científica</button>
-            <button class="chip" onclick="buscarGenero(this, 'Horror')">Horror</button>
-            <button class="chip" onclick="buscarGenero(this, 'Romance')">Romance</button>
-            <button class="chip" onclick="buscarGenero(this, 'Terror')">Terror</button>
+            <button class="chip" onclick="buscarGenero(this,'Ação')">Ação</button>
+            <button class="chip" onclick="buscarGenero(this,'Aventura')">Aventura</button>
+            <button class="chip" onclick="buscarGenero(this,'Comédia')">Comédia</button>
+            <button class="chip" onclick="buscarGenero(this,'Crime')">Crime</button>
+            <button class="chip" onclick="buscarGenero(this,'Drama')">Drama</button>
+            <button class="chip" onclick="buscarGenero(this,'Fantasia')">Fantasia</button>
+            <button class="chip" onclick="buscarGenero(this,'Ficção Científica')">Ficção Científica</button>
+            <button class="chip" onclick="buscarGenero(this,'Horror')">Horror</button>
+            <button class="chip" onclick="buscarGenero(this,'Romance')">Romance</button>
+            <button class="chip" onclick="buscarGenero(this,'Terror')">Terror</button>
         </div>
-
-        <div class="results-header">
-            <p class="results-count" id="contador"></p>
-        </div>
-
+        <div class="results-header"><p class="results-count" id="contador"></p></div>
         <div id="resultados">
             <div class="empty">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
                 <p>Busque um filme ou clique em "Ver Todos"</p>
             </div>
         </div>
-
     </main>
 </div>
 
 <script>
+    // ── Estado ──
+    let token   = localStorage.getItem('cinesearch_token') || null
+    let usuario = JSON.parse(localStorage.getItem('cinesearch_usuario') || 'null')
+
+    atualizarUI()
+
+    // ── UI ──
+    function atualizarUI() {
+        const logado = !!(usuario && token)
+        document.getElementById('btnAbrirLogin').style.display = logado ? 'none'         : 'inline-block'
+        document.getElementById('userInfo').style.display      = logado ? 'flex'         : 'none'
+        document.getElementById('avisoLogin').style.display    = logado ? 'none'         : 'block'
+        document.getElementById('formCampos').style.display    = logado ? 'block'        : 'none'
+        if (logado) document.getElementById('userNome').textContent = usuario.nome
+    }
+
+    // ── Modal ──
+    function abrirModal() { document.getElementById('modalOverlay').classList.add('ativo') }
+    function fecharModal() {
+        document.getElementById('modalOverlay').classList.remove('ativo')
+        document.getElementById('msgLogin').textContent = ''
+        document.getElementById('msgRegistro').textContent = ''
+    }
+    document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) fecharModal() })
+
+    function trocarTab(aba) {
+        document.getElementById('tabLogin').classList.toggle('ativo', aba === 'login')
+        document.getElementById('tabRegistro').classList.toggle('ativo', aba === 'registro')
+        document.getElementById('formLogin').classList.toggle('ativo', aba === 'login')
+        document.getElementById('formRegistro').classList.toggle('ativo', aba === 'registro')
+    }
+
+    // ── 🆕 Registro ──
+    async function fazerRegistro() {
+        const nome  = document.getElementById('regNome').value.trim()
+        const email = document.getElementById('regEmail').value.trim()
+        const senha = document.getElementById('regSenha').value
+        const msg   = document.getElementById('msgRegistro')
+        if (!nome || !email || !senha) { msg.textContent = 'Preencha todos os campos!'; msg.className = 'modal-msg erro'; return }
+        try {
+            const res  = await fetch('/usuarios/registro', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nome, email, senha }) })
+            const data = await res.json()
+            if (data.mensagem) { msg.textContent = 'Cadastrado! Faça login.'; msg.className = 'modal-msg'; setTimeout(() => trocarTab('login'), 1500) }
+            else { msg.textContent = data.erro; msg.className = 'modal-msg erro' }
+        } catch { msg.textContent = 'Erro ao conectar'; msg.className = 'modal-msg erro' }
+    }
+
+    // ── 🆕 Login ──
+    async function fazerLogin() {
+        const email = document.getElementById('loginEmail').value.trim()
+        const senha = document.getElementById('loginSenha').value
+        const msg   = document.getElementById('msgLogin')
+        if (!email || !senha) { msg.textContent = 'Preencha email e senha!'; msg.className = 'modal-msg erro'; return }
+        try {
+            const res  = await fetch('/usuarios/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, senha }) })
+            const data = await res.json()
+            if (data.token) {
+                token = data.token; usuario = data.usuario
+                localStorage.setItem('cinesearch_token', token)
+                localStorage.setItem('cinesearch_usuario', JSON.stringify(usuario))
+                msg.textContent = `Bem-vindo, ${usuario.nome}!`; msg.className = 'modal-msg'
+                setTimeout(() => { fecharModal(); atualizarUI() }, 1000)
+            } else { msg.textContent = data.erro; msg.className = 'modal-msg erro' }
+        } catch { msg.textContent = 'Erro ao conectar'; msg.className = 'modal-msg erro' }
+    }
+
+    // ── 🆕 Sair ──
+    function sair() {
+        token = null; usuario = null
+        localStorage.removeItem('cinesearch_token')
+        localStorage.removeItem('cinesearch_usuario')
+        cancelarEdicao(); atualizarUI()
+    }
+
+    // ── Helper: headers com token ──
+    function headersAuth() { return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` } }
+
+    // ── Salvar ──
     async function salvar() {
         const id = document.getElementById('editandoId').value
-        if (id) { await atualizarFilme(id) } else { await cadastrar() }
+        if (id) await atualizarFilme(id); else await cadastrar()
     }
 
     async function cadastrar() {
         const titulo = document.getElementById('titulo').value.trim()
         const genero = document.getElementById('genero').value
-        const ano = document.getElementById('ano').value
-        const sinopse = document.getElementById('sinopse').value.trim()
-        const msg = document.getElementById('msg')
-
-        if (!titulo || !genero || !ano || !sinopse) {
-            msg.textContent = 'Preencha todos os campos!'
-            msg.className = 'msg erro'
-            return
-        }
-
+        const ano    = document.getElementById('ano').value
+        const sinopse= document.getElementById('sinopse').value.trim()
+        const msg    = document.getElementById('msg')
+        if (!titulo || !genero || !ano || !sinopse) { msg.textContent = 'Preencha todos os campos!'; msg.className = 'msg erro'; return }
         try {
-            const res = await fetch('/filmes', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ titulo, genero, ano, sinopse })
-            })
+            const res  = await fetch('/filmes', { method: 'POST', headers: headersAuth(), body: JSON.stringify({ titulo, genero, ano, sinopse }) })
             const data = await res.json()
             msg.textContent = data.mensagem || data.erro
-            msg.className = data.mensagem ? 'msg' : 'msg erro'
+            msg.className   = data.mensagem ? 'msg' : 'msg erro'
             if (data.mensagem) { limparFormulario(); buscar('') }
-        } catch (err) {
-            msg.textContent = 'Erro ao conectar com o servidor'
-            msg.className = 'msg erro'
-        }
+            if (res.status === 401 || res.status === 403) { sair(); abrirModal() }
+        } catch { msg.textContent = 'Erro ao conectar'; msg.className = 'msg erro' }
     }
 
     async function atualizarFilme(id) {
         const titulo = document.getElementById('titulo').value.trim()
         const genero = document.getElementById('genero').value
-        const ano = document.getElementById('ano').value
-        const sinopse = document.getElementById('sinopse').value.trim()
-        const msg = document.getElementById('msg')
-
-        if (!titulo || !genero || !ano || !sinopse) {
-            msg.textContent = 'Preencha todos os campos!'
-            msg.className = 'msg erro'
-            return
-        }
-
+        const ano    = document.getElementById('ano').value
+        const sinopse= document.getElementById('sinopse').value.trim()
+        const msg    = document.getElementById('msg')
+        if (!titulo || !genero || !ano || !sinopse) { msg.textContent = 'Preencha todos os campos!'; msg.className = 'msg erro'; return }
         try {
-            const res = await fetch(`/filmes/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ titulo, genero, ano, sinopse })
-            })
+            const res  = await fetch(`/filmes/${id}`, { method: 'PUT', headers: headersAuth(), body: JSON.stringify({ titulo, genero, ano, sinopse }) })
             const data = await res.json()
             msg.textContent = data.mensagem || data.erro
-            msg.className = data.mensagem ? 'msg' : 'msg erro'
+            msg.className   = data.mensagem ? 'msg' : 'msg erro'
             if (data.mensagem) { cancelarEdicao(); buscar('') }
-        } catch (err) {
-            msg.textContent = 'Erro ao conectar com o servidor'
-            msg.className = 'msg erro'
-        }
+            if (res.status === 401 || res.status === 403) { sair(); abrirModal() }
+        } catch { msg.textContent = 'Erro ao conectar'; msg.className = 'msg erro' }
     }
 
     function editarFilme(id, titulo, genero, ano, sinopse) {
-        document.getElementById('editandoId').value = id
-        document.getElementById('titulo').value = titulo
-        document.getElementById('genero').value = genero
-        document.getElementById('ano').value = ano
-        document.getElementById('sinopse').value = sinopse
-        document.getElementById('formTitulo').textContent = 'Editar Filme'
-        document.getElementById('btnSubmit').textContent = 'SALVAR EDIÇÃO'
+        document.getElementById('editandoId').value          = id
+        document.getElementById('titulo').value              = titulo
+        document.getElementById('genero').value              = genero
+        document.getElementById('ano').value                 = ano
+        document.getElementById('sinopse').value             = sinopse
+        document.getElementById('formTitulo').textContent    = 'Editar Filme'
+        document.getElementById('btnSubmit').textContent     = 'SALVAR EDIÇÃO'
         document.getElementById('btnCancelar').style.display = 'block'
         document.getElementById('formCard').classList.add('editando')
-        document.getElementById('msg').textContent = ''
+        document.getElementById('msg').textContent           = ''
         document.querySelector('.sidebar').scrollIntoView({ behavior: 'smooth' })
     }
 
     function cancelarEdicao() {
         limparFormulario()
-        document.getElementById('editandoId').value = ''
-        document.getElementById('formTitulo').textContent = 'Cadastrar Filme'
-        document.getElementById('btnSubmit').textContent = 'CADASTRAR FILME'
+        document.getElementById('editandoId').value          = ''
+        document.getElementById('formTitulo').textContent    = 'Cadastrar Filme'
+        document.getElementById('btnSubmit').textContent     = 'CADASTRAR FILME'
         document.getElementById('btnCancelar').style.display = 'none'
         document.getElementById('formCard').classList.remove('editando')
-        document.getElementById('msg').textContent = ''
+        document.getElementById('msg').textContent           = ''
     }
 
     function limparFormulario() {
-        document.getElementById('titulo').value = ''
-        document.getElementById('genero').value = ''
-        document.getElementById('ano').value = ''
+        document.getElementById('titulo').value  = ''
+        document.getElementById('genero').value  = ''
+        document.getElementById('ano').value     = ''
         document.getElementById('sinopse').value = ''
     }
 
     async function deletarFilme(id, titulo) {
         if (!confirm(`Deletar "${titulo}"?`)) return
         try {
-            const res = await fetch(`/filmes/${id}`, { method: 'DELETE' })
+            const res  = await fetch(`/filmes/${id}`, { method: 'DELETE', headers: headersAuth() })
             const data = await res.json()
             if (data.mensagem) buscar('')
-        } catch (err) { alert('Erro ao deletar filme') }
+            else alert(data.erro)
+            if (res.status === 401 || res.status === 403) { sair(); abrirModal() }
+        } catch { alert('Erro ao deletar filme') }
     }
 
     function buscarGenero(el, genero) {
@@ -811,44 +470,45 @@
     async function buscar(termo) {
         const q = termo !== undefined ? termo : document.getElementById('busca').value
         if (termo === '') document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'))
-
         try {
-            const res = await fetch(`/filmes?q=${encodeURIComponent(q)}`)
+            const res    = await fetch(`/filmes?q=${encodeURIComponent(q)}`)
             const filmes = await res.json()
-            const div = document.getElementById('resultados')
+            const div    = document.getElementById('resultados')
             const contador = document.getElementById('contador')
 
             contador.innerHTML = `<span>${filmes.length}</span> filme${filmes.length !== 1 ? 's' : ''} encontrado${filmes.length !== 1 ? 's' : ''}`
 
             if (filmes.length === 0) {
-                div.innerHTML = `
-                    <div class="empty">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-                        </svg>
-                        <p>Nenhum filme encontrado para "<strong>${q}</strong>"</p>
-                    </div>`
+                div.innerHTML = `<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><p>Nenhum filme encontrado para "<strong>${q}</strong>"</p></div>`
                 return
             }
 
-            div.innerHTML = filmes.map((f, i) => `
+            const usuarioId = usuario ? usuario.id : null
+
+            div.innerHTML = filmes.map((f, i) => {
+                // 🆕 Botões só aparecem pro dono do filme
+                const ehDono = usuarioId && f.autor_id === usuarioId
+                const acoes  = ehDono ? `
+                    <button class="btn-editar" onclick="editarFilme('${f._id}',\`${f.titulo}\`,\`${f.genero}\`,\`${f.ano}\`,\`${f.sinopse}\`)">EDITAR</button>
+                    <button class="btn-deletar" onclick="deletarFilme('${f._id}',\`${f.titulo}\`)">DELETAR</button>
+                ` : ''
+
+                return `
                 <div class="filme" style="animation-delay:${i * 0.05}s">
                     <div class="filme-info">
                         <h3>${f.titulo}</h3>
                         <div class="filme-meta">
-                            ${f.genero ? `<span class="badge badge-genero">${f.genero}</span>` : ''}
-                            ${f.ano ? `<span class="badge badge-ano">${f.ano}</span>` : ''}
+                            ${f.genero     ? `<span class="badge badge-genero">${f.genero}</span>`         : ''}
+                            ${f.ano        ? `<span class="badge badge-ano">${f.ano}</span>`               : ''}
+                            ${f.autor_nome ? `<span class="badge badge-autor">por ${f.autor_nome}</span>` : ''}
                         </div>
                         <p class="filme-sinopse">${f.sinopse || ''}</p>
-                        <div class="filme-acoes">
-                            <button class="btn-editar" onclick="editarFilme('${f._id}', \`${f.titulo}\`, \`${f.genero}\`, \`${f.ano}\`, \`${f.sinopse}\`)">EDITAR</button>
-                            <button class="btn-deletar" onclick="deletarFilme('${f._id}', \`${f.titulo}\`)">DELETAR</button>
-                        </div>
+                        <div class="filme-acoes">${acoes}</div>
                     </div>
                     <div class="filme-num">${String(i + 1).padStart(2, '0')}</div>
-                </div>
-            `).join('')
-        } catch (err) {
+                </div>`
+            }).join('')
+        } catch {
             document.getElementById('resultados').innerHTML = '<div class="empty"><p>Erro ao buscar filmes</p></div>'
         }
     }
