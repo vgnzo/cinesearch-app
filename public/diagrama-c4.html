@@ -19,312 +19,112 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 40px 24px 60px;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 24px 60px; }
 
-  h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 42px;
-    letter-spacing: 4px;
-    text-align: center;
-    margin-bottom: 4px;
-  }
-
+  h1 { font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: 4px; text-align: center; margin-bottom: 4px; }
   h1 span { color: var(--red); text-shadow: 0 0 20px var(--red-glow); }
 
-  .subtitle {
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 48px;
+  .subtitle { text-align: center; color: var(--muted); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 24px; }
+
+  /* ── BOTÃO VOLTAR ── */
+  .nav-topo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
   }
 
-  .section-label {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px;
-    letter-spacing: 3px;
-    color: var(--red);
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .diagram {
-    max-width: 860px;
-    margin: 0 auto 60px;
-  }
-
-  .level-badge {
-    display: inline-block;
-    padding: 3px 12px;
-    border: 1px solid var(--red);
+  .btn-voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border: 1px solid var(--border);
     border-radius: 20px;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--red);
-    text-transform: uppercase;
-    margin-bottom: 24px;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.2s;
   }
 
+  .btn-voltar:hover {
+    border-color: var(--red);
+    color: var(--text);
+  }
+
+  .btn-voltar svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  .section-label { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 3px; color: var(--red); text-transform: uppercase; text-align: center; margin-bottom: 20px; }
+  .diagram { max-width: 860px; margin: 0 auto 60px; }
+  .level-badge { display: inline-block; padding: 3px 12px; border: 1px solid var(--red); border-radius: 20px; font-size: 11px; letter-spacing: 2px; color: var(--red); text-transform: uppercase; margin-bottom: 24px; }
   .level-center { text-align: center; }
 
-  .context-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-  }
-
-  .actor {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 28px;
-    text-align: center;
-    width: 180px;
-  }
-
+  .context-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .actor { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 16px 28px; text-align: center; width: 180px; }
   .actor .icon { font-size: 28px; margin-bottom: 6px; }
   .actor .name { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 2px; }
   .actor .desc { font-size: 11px; color: var(--muted); margin-top: 4px; }
 
-  .system-box {
-    background: rgba(229,9,20,0.08);
-    border: 2px solid var(--red);
-    border-radius: 16px;
-    padding: 20px 36px;
-    text-align: center;
-    width: 220px;
-    box-shadow: 0 0 30px var(--red-glow);
-  }
-
+  .system-box { background: rgba(229,9,20,0.08); border: 2px solid var(--red); border-radius: 16px; padding: 20px 36px; text-align: center; width: 220px; box-shadow: 0 0 30px var(--red-glow); }
   .system-box .icon { font-size: 32px; margin-bottom: 8px; }
   .system-box .name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: var(--red); }
   .system-box .desc { font-size: 11px; color: var(--muted); margin-top: 6px; }
 
-  .ext-box {
-    background: var(--bg2);
-    border: 1px dashed rgba(255,255,255,0.15);
-    border-radius: 12px;
-    padding: 16px 24px;
-    text-align: center;
-    width: 200px;
-  }
-
+  .ext-box { background: var(--bg2); border: 1px dashed rgba(255,255,255,0.15); border-radius: 12px; padding: 16px 24px; text-align: center; width: 200px; }
   .ext-box .icon { font-size: 26px; margin-bottom: 6px; }
   .ext-box .name { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 2px; color: #aaa; }
   .ext-box .desc { font-size: 11px; color: var(--muted); margin-top: 4px; }
 
-  .arrow-down {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    margin: 4px 0;
-  }
+  .arrow-down { display: flex; flex-direction: column; align-items: center; gap: 2px; margin: 4px 0; }
+  .arrow-line { width: 2px; height: 28px; background: linear-gradient(to bottom, rgba(229,9,20,0.6), rgba(229,9,20,0.2)); }
+  .arrow-label { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; background: var(--bg); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--border); white-space: nowrap; }
+  .arrow-tip { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 7px solid rgba(229,9,20,0.5); }
 
-  .arrow-line {
-    width: 2px;
-    height: 28px;
-    background: linear-gradient(to bottom, rgba(229,9,20,0.6), rgba(229,9,20,0.2));
-  }
-
-  .arrow-label {
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    background: var(--bg);
-    padding: 2px 8px;
-    border-radius: 4px;
-    border: 1px solid var(--border);
-    white-space: nowrap;
-  }
-
-  .arrow-tip {
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 7px solid rgba(229,9,20,0.5);
-  }
-
-  .container-diagram {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-    align-items: start;
-    position: relative;
-  }
-
-  .container-card {
-    border-radius: 14px;
-    padding: 20px;
-    text-align: center;
-  }
-
-  .container-card.frontend {
-    background: rgba(59,130,246,0.08);
-    border: 1px solid rgba(59,130,246,0.3);
-  }
-
-  .container-card.backend {
-    background: rgba(229,9,20,0.08);
-    border: 2px solid var(--red);
-    box-shadow: 0 0 20px var(--red-glow);
-  }
-
-  .container-card.database {
-    background: rgba(34,197,94,0.06);
-    border: 1px solid rgba(34,197,94,0.25);
-  }
-
+  .container-diagram { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; align-items: start; position: relative; }
+  .container-card { border-radius: 14px; padding: 20px; text-align: center; }
+  .container-card.frontend { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.3); }
+  .container-card.backend { background: rgba(229,9,20,0.08); border: 2px solid var(--red); box-shadow: 0 0 20px var(--red-glow); }
+  .container-card.database { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.25); }
   .container-card .c-icon { font-size: 30px; margin-bottom: 10px; }
-  .container-card .c-tech {
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
+  .container-card .c-tech { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
   .frontend .c-tech { color: #60a5fa; }
   .backend .c-tech { color: var(--red); }
   .database .c-tech { color: #4ade80; }
+  .container-card .c-name { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; margin-bottom: 8px; }
+  .container-card .c-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
 
-  .container-card .c-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 2px;
-    margin-bottom: 8px;
-  }
+  .h-arrow { display: flex; align-items: center; gap: 6px; }
+  .h-line { width: 30px; height: 2px; background: rgba(255,255,255,0.15); }
+  .h-label { font-size: 9px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
 
-  .container-card .c-desc {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  .h-arrow {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .h-line {
-    width: 30px;
-    height: 2px;
-    background: rgba(255,255,255,0.15);
-  }
-
-  .h-label {
-    font-size: 9px;
-    color: var(--muted);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .component-wrap {
-    background: rgba(229,9,20,0.04);
-    border: 1px solid rgba(229,9,20,0.2);
-    border-radius: 16px;
-    padding: 28px;
-  }
-
-  .component-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 14px;
-    letter-spacing: 3px;
-    color: var(--red);
-    margin-bottom: 20px;
-    text-align: center;
-  }
-
-  .components-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .comp {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-
-  .comp-icon {
-    font-size: 20px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .comp-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 14px;
-    letter-spacing: 1px;
-    margin-bottom: 4px;
-  }
-
-  .comp-method {
-    display: inline-block;
-    font-size: 10px;
-    padding: 1px 7px;
-    border-radius: 3px;
-    letter-spacing: 1px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
+  .component-wrap { background: rgba(229,9,20,0.04); border: 1px solid rgba(229,9,20,0.2); border-radius: 16px; padding: 28px; }
+  .component-title { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 3px; color: var(--red); margin-bottom: 20px; text-align: center; }
+  .components-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .comp { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; }
+  .comp-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .comp-name { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 1px; margin-bottom: 4px; }
+  .comp-method { display: inline-block; font-size: 10px; padding: 1px 7px; border-radius: 3px; letter-spacing: 1px; font-weight: 600; margin-bottom: 4px; }
   .method-post { background: rgba(34,197,94,0.15); color: #4ade80; }
   .method-get  { background: rgba(59,130,246,0.15); color: #60a5fa; }
   .method-put  { background: rgba(251,191,36,0.15); color: #fbbf24; }
   .method-del  { background: rgba(229,9,20,0.15);   color: #f87171; }
-
   .comp-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
 
-  .flow-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-
-  .flow-table th {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px;
-    letter-spacing: 2px;
-    color: var(--red);
-    text-align: left;
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .flow-table td {
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-    color: var(--muted);
-    vertical-align: top;
-  }
-
+  .flow-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .flow-table th { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 2px; color: var(--red); text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  .flow-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; }
   .flow-table tr:last-child td { border-bottom: none; }
   .flow-table tr:hover td { background: var(--bg3); }
   .flow-table td:first-child { color: var(--text); font-weight: 500; }
 
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 40px 0;
-  }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 </style>
 </head>
 <body>
@@ -332,45 +132,46 @@
 <h1>CINE<span>SEARCH</span></h1>
 <p class="subtitle">Modelo C4 — Arquitetura do Sistema</p>
 
+<div class="nav-topo">
+  <a href="/" class="btn-voltar">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Voltar ao CineSearch
+  </a>
+</div>
+
 <div class="diagram">
 
   <div class="level-center"><span class="level-badge">Nível 1 — Contexto</span></div>
   <p class="section-label">Quem usa o sistema e com o que ele se conecta</p>
 
   <div class="context-wrap">
-
     <div class="actor">
       <div class="icon">👤</div>
       <div class="name">Usuário</div>
       <div class="desc">Acessa pelo navegador</div>
     </div>
-
     <div class="arrow-down">
       <div class="arrow-line"></div>
       <div class="arrow-label">usa / interage</div>
       <div class="arrow-line"></div>
       <div class="arrow-tip"></div>
     </div>
-
     <div class="system-box">
       <div class="icon">🎬</div>
       <div class="name">CineSearch</div>
       <div class="desc">Sistema de catálogo e busca de filmes</div>
     </div>
-
     <div class="arrow-down">
       <div class="arrow-line"></div>
       <div class="arrow-label">armazena e consulta dados</div>
       <div class="arrow-line"></div>
       <div class="arrow-tip"></div>
     </div>
-
     <div class="ext-box">
       <div class="icon">🔍</div>
       <div class="name">Bonsai / OpenSearch</div>
       <div class="desc">Banco de dados na nuvem (AWS)</div>
     </div>
-
   </div>
 
   <hr class="divider">
@@ -379,69 +180,32 @@
   <p class="section-label">As três camadas da aplicação</p>
 
   <div class="container-diagram">
-
     <div class="container-card frontend">
       <div class="c-icon">🖥️</div>
       <div class="c-tech">HTML + CSS + JS</div>
       <div class="c-name">Frontend</div>
-      <div class="c-desc">
-        Interface do usuário.<br>
-        Formulário de cadastro, barra de busca,
-        filtros por gênero, botões de editar e deletar.
-        Roda no navegador.
-      </div>
+      <div class="c-desc">Interface do usuário.<br>Formulário de cadastro, barra de busca, filtros por gênero, botões de editar e deletar. Roda no navegador.</div>
     </div>
-
     <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding-top:40px">
-      <div class="h-arrow">
-        <div class="h-line"></div>
-        <div class="h-label">HTTP fetch →</div>
-        <div class="h-line"></div>
-      </div>
-      <div class="h-arrow">
-        <div class="h-line"></div>
-        <div class="h-label">← JSON response</div>
-        <div class="h-line"></div>
-      </div>
+      <div class="h-arrow"><div class="h-line"></div><div class="h-label">HTTP fetch →</div><div class="h-line"></div></div>
+      <div class="h-arrow"><div class="h-line"></div><div class="h-label">← JSON response</div><div class="h-line"></div></div>
     </div>
-
     <div class="container-card backend">
       <div class="c-icon">⚙️</div>
       <div class="c-tech">Node.js + Express</div>
       <div class="c-name">Backend (API REST)</div>
-      <div class="c-desc">
-        Servidor HTTP na porta 3000.<br>
-        Recebe requisições do Frontend,
-        processa e repassa ao Elasticsearch.
-        Usa Axios para comunicação.
-      </div>
+      <div class="c-desc">Servidor HTTP na porta 3000.<br>Recebe requisições do Frontend, processa e repassa ao Elasticsearch. Usa Axios para comunicação.</div>
     </div>
-
     <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding-top:40px">
-      <div class="h-arrow">
-        <div class="h-line"></div>
-        <div class="h-label">HTTPS axios →</div>
-        <div class="h-line"></div>
-      </div>
-      <div class="h-arrow">
-        <div class="h-line"></div>
-        <div class="h-label">← JSON hits</div>
-        <div class="h-line"></div>
-      </div>
+      <div class="h-arrow"><div class="h-line"></div><div class="h-label">HTTPS axios →</div><div class="h-line"></div></div>
+      <div class="h-arrow"><div class="h-line"></div><div class="h-label">← JSON hits</div><div class="h-line"></div></div>
     </div>
-
     <div class="container-card database">
       <div class="c-icon">🗄️</div>
       <div class="c-tech">OpenSearch 2.19 (Bonsai)</div>
       <div class="c-name">Banco de Dados</div>
-      <div class="c-desc">
-        Índice <strong style="color:#4ade80">filmes</strong> na nuvem AWS.<br>
-        Armazena documentos JSON.
-        Busca full-text por título,
-        gênero e sinopse simultaneamente.
-      </div>
+      <div class="c-desc">Índice <strong style="color:#4ade80">filmes</strong> na nuvem AWS.<br>Armazena documentos JSON. Busca full-text por título, gênero e sinopse simultaneamente.</div>
     </div>
-
   </div>
 
   <hr class="divider">
@@ -452,7 +216,6 @@
   <div class="component-wrap">
     <div class="component-title">server.js — Rotas da API REST</div>
     <div class="components-grid">
-
       <div class="comp">
         <div class="comp-icon">➕</div>
         <div>
@@ -462,7 +225,6 @@
           <div class="comp-desc">Recebe os dados do formulário e cria um novo documento no índice com ID gerado automaticamente pelo Elasticsearch.</div>
         </div>
       </div>
-
       <div class="comp">
         <div class="comp-icon">🔍</div>
         <div>
@@ -472,7 +234,6 @@
           <div class="comp-desc">Usa multi_match para buscar em título, gênero e sinopse ao mesmo tempo. Sem termo, retorna todos (match_all).</div>
         </div>
       </div>
-
       <div class="comp">
         <div class="comp-icon">✏️</div>
         <div>
@@ -482,7 +243,6 @@
           <div class="comp-desc">Substitui o documento inteiro no Elasticsearch pelo conteúdo atualizado, identificado pelo _id único.</div>
         </div>
       </div>
-
       <div class="comp">
         <div class="comp-icon">🗑️</div>
         <div>
@@ -492,7 +252,6 @@
           <div class="comp-desc">Remove permanentemente o documento do índice no Elasticsearch usando o _id retornado na busca.</div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -504,56 +263,16 @@
   <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden">
     <table class="flow-table">
       <thead>
-        <tr>
-          <th>#</th>
-          <th>Camada</th>
-          <th>Ação</th>
-          <th>Tecnologia</th>
-        </tr>
+        <tr><th>#</th><th>Camada</th><th>Ação</th><th>Tecnologia</th></tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Frontend</td>
-          <td>Usuário digita "Inception" e clica em Buscar</td>
-          <td>HTML + JS</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Frontend → Backend</td>
-          <td>fetch("GET /filmes?q=Inception")</td>
-          <td>fetch API</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Backend</td>
-          <td>Monta query multi_match com o termo recebido</td>
-          <td>Express.js</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>Backend → Elasticsearch</td>
-          <td>axios.post("/filmes/_search", { query })</td>
-          <td>Axios + HTTPS</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>Elasticsearch</td>
-          <td>Busca full-text nos documentos e retorna os hits</td>
-          <td>OpenSearch 2.19</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>Backend → Frontend</td>
-          <td>Extrai _source dos hits e retorna JSON</td>
-          <td>Express res.json()</td>
-        </tr>
-        <tr>
-          <td>7</td>
-          <td>Frontend</td>
-          <td>Renderiza os cards dos filmes encontrados na tela</td>
-          <td>JS DOM</td>
-        </tr>
+        <tr><td>1</td><td>Frontend</td><td>Usuário digita "Inception" e clica em Buscar</td><td>HTML + JS</td></tr>
+        <tr><td>2</td><td>Frontend → Backend</td><td>fetch("GET /filmes?q=Inception")</td><td>fetch API</td></tr>
+        <tr><td>3</td><td>Backend</td><td>Monta query multi_match com o termo recebido</td><td>Express.js</td></tr>
+        <tr><td>4</td><td>Backend → Elasticsearch</td><td>axios.post("/filmes/_search", { query })</td><td>Axios + HTTPS</td></tr>
+        <tr><td>5</td><td>Elasticsearch</td><td>Busca full-text nos documentos e retorna os hits</td><td>OpenSearch 2.19</td></tr>
+        <tr><td>6</td><td>Backend → Frontend</td><td>Extrai _source dos hits e retorna JSON</td><td>Express res.json()</td></tr>
+        <tr><td>7</td><td>Frontend</td><td>Renderiza os cards dos filmes encontrados na tela</td><td>JS DOM</td></tr>
       </tbody>
     </table>
   </div>

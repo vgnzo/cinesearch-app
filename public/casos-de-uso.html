@@ -27,263 +27,88 @@
     padding: 40px 24px 60px;
   }
 
-  h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 42px;
-    letter-spacing: 4px;
-    text-align: center;
-    margin-bottom: 4px;
-  }
-
+  h1 { font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: 4px; text-align: center; margin-bottom: 4px; }
   h1 span { color: var(--red); text-shadow: 0 0 20px var(--red-glow); }
 
-  .subtitle {
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 48px;
-  }
+  .subtitle { text-align: center; color: var(--muted); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 24px; }
 
-  .diagram {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .level-center { text-align: center; margin-bottom: 24px; }
-
-  .level-badge {
-    display: inline-block;
-    padding: 3px 12px;
-    border: 1px solid var(--red);
-    border-radius: 20px;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--red);
-    text-transform: uppercase;
-  }
-
-  .section-label {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px;
-    letter-spacing: 3px;
-    color: var(--red);
-    text-transform: uppercase;
-    text-align: center;
+  /* ── BOTÃO VOLTAR ── */
+  .nav-topo {
+    display: flex;
+    justify-content: center;
     margin-bottom: 32px;
   }
 
-  .system-boundary {
-    border: 2px dashed rgba(229,9,20,0.3);
-    border-radius: 20px;
-    padding: 32px;
-    position: relative;
-    margin: 0 60px;
-  }
-
-  .boundary-label {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--bg);
-    padding: 2px 16px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 14px;
-    letter-spacing: 3px;
-    color: rgba(229,9,20,0.6);
-    white-space: nowrap;
-  }
-
-  .uc-layout {
-    display: flex;
-    gap: 32px;
-    align-items: center;
-  }
-
-  .actor-wrap {
-    display: flex;
-    flex-direction: column;
+  .btn-voltar {
+    display: inline-flex;
     align-items: center;
     gap: 8px;
-    flex-shrink: 0;
-  }
-
-  .actor-figure {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .actor-head {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid #60a5fa;
-    background: rgba(59,130,246,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-  }
-
-  .actor-body {
-    width: 2px;
-    height: 30px;
-    background: #60a5fa;
-    opacity: 0.5;
-  }
-
-  .actor-arms {
-    width: 40px;
-    height: 2px;
-    background: #60a5fa;
-    opacity: 0.5;
-    margin-top: -16px;
-  }
-
-  .actor-legs {
-    display: flex;
-    gap: 16px;
-    margin-top: 4px;
-  }
-
-  .actor-leg {
-    width: 2px;
-    height: 24px;
-    background: #60a5fa;
-    opacity: 0.5;
-    transform: rotate(10deg);
-  }
-
-  .actor-leg:first-child { transform: rotate(-10deg); }
-
-  .actor-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: #60a5fa;
-    text-align: center;
-    margin-top: 4px;
-  }
-
-  .connections {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    flex-shrink: 0;
-  }
-
-  .conn-line {
-    width: 40px;
-    height: 2px;
-    background: linear-gradient(to right, rgba(96,165,250,0.4), rgba(229,9,20,0.4));
-  }
-
-  .uc-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    flex: 1;
-  }
-
-  .uc-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: var(--bg2);
+    padding: 8px 20px;
     border: 1px solid var(--border);
-    border-radius: 50px;
-    padding: 12px 20px;
-    transition: border-color 0.2s, transform 0.2s;
-    cursor: default;
-  }
-
-  .uc-item:hover {
-    border-color: rgba(229,9,20,0.4);
-    transform: translateX(4px);
-  }
-
-  .uc-code {
-    font-family: 'Bebas Neue', sans-serif;
+    border-radius: 20px;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
     font-size: 13px;
-    letter-spacing: 2px;
-    color: var(--red);
-    background: rgba(229,9,20,0.1);
-    border: 1px solid rgba(229,9,20,0.2);
-    border-radius: 4px;
-    padding: 2px 8px;
-    flex-shrink: 0;
-  }
-
-  .uc-icon {
-    font-size: 18px;
-    flex-shrink: 0;
-  }
-
-  .uc-text { flex: 1; }
-
-  .uc-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 16px;
     letter-spacing: 1px;
-    margin-bottom: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
   }
 
-  .uc-desc {
-    font-size: 11px;
-    color: var(--muted);
-    line-height: 1.4;
+  .btn-voltar:hover {
+    border-color: var(--red);
+    color: var(--text);
   }
 
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 40px 0;
+  .btn-voltar svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
   }
 
-  .detail-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
+  .diagram { max-width: 900px; margin: 0 auto; }
+  .level-center { text-align: center; margin-bottom: 24px; }
+  .level-badge { display: inline-block; padding: 3px 12px; border: 1px solid var(--red); border-radius: 20px; font-size: 11px; letter-spacing: 2px; color: var(--red); text-transform: uppercase; }
+  .section-label { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 3px; color: var(--red); text-transform: uppercase; text-align: center; margin-bottom: 32px; }
 
-  .detail-table th {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px;
-    letter-spacing: 2px;
-    color: var(--red);
-    text-align: left;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    background: rgba(229,9,20,0.05);
-  }
+  .system-boundary { border: 2px dashed rgba(229,9,20,0.3); border-radius: 20px; padding: 32px; position: relative; margin: 0 60px; }
+  .boundary-label { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--bg); padding: 2px 16px; font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 3px; color: rgba(229,9,20,0.6); white-space: nowrap; }
 
-  .detail-table td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    color: var(--muted);
-    vertical-align: top;
-    line-height: 1.5;
-  }
+  .uc-layout { display: flex; gap: 32px; align-items: center; }
+  .actor-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
+  .actor-figure { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .actor-head { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #60a5fa; background: rgba(59,130,246,0.1); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .actor-body { width: 2px; height: 30px; background: #60a5fa; opacity: 0.5; }
+  .actor-arms { width: 40px; height: 2px; background: #60a5fa; opacity: 0.5; margin-top: -16px; }
+  .actor-legs { display: flex; gap: 16px; margin-top: 4px; }
+  .actor-leg { width: 2px; height: 24px; background: #60a5fa; opacity: 0.5; transform: rotate(10deg); }
+  .actor-leg:first-child { transform: rotate(-10deg); }
+  .actor-name { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 2px; color: #60a5fa; text-align: center; margin-top: 4px; }
 
+  .connections { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+  .conn-line { width: 40px; height: 2px; background: linear-gradient(to right, rgba(96,165,250,0.4), rgba(229,9,20,0.4)); }
+
+  .uc-list { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .uc-item { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 50px; padding: 12px 20px; transition: border-color 0.2s, transform 0.2s; cursor: default; }
+  .uc-item:hover { border-color: rgba(229,9,20,0.4); transform: translateX(4px); }
+  .uc-code { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 2px; color: var(--red); background: rgba(229,9,20,0.1); border: 1px solid rgba(229,9,20,0.2); border-radius: 4px; padding: 2px 8px; flex-shrink: 0; }
+  .uc-icon { font-size: 18px; flex-shrink: 0; }
+  .uc-text { flex: 1; }
+  .uc-name { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; margin-bottom: 2px; }
+  .uc-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .detail-table th { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 2px; color: var(--red); text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); background: rgba(229,9,20,0.05); }
+  .detail-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.5; }
   .detail-table tr:last-child td { border-bottom: none; }
   .detail-table tr:hover td { background: var(--bg3); }
   .detail-table td:first-child { color: var(--red); font-family: 'Bebas Neue'; font-size: 14px; letter-spacing: 1px; white-space: nowrap; }
   .detail-table td:nth-child(2) { color: var(--text); font-weight: 500; }
 
-  .tag {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 10px;
-    letter-spacing: 1px;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; }
   .tag-front { background: rgba(59,130,246,0.15); color: #60a5fa; }
   .tag-back  { background: rgba(229,9,20,0.15);   color: #f87171; }
   .tag-db    { background: rgba(34,197,94,0.15);  color: #4ade80; }
@@ -294,6 +119,13 @@
 <h1>CINE<span>SEARCH</span></h1>
 <p class="subtitle">Diagrama de Casos de Uso</p>
 
+<div class="nav-topo">
+  <a href="/" class="btn-voltar">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Voltar ao CineSearch
+  </a>
+</div>
+
 <div class="diagram">
 
   <div class="level-center"><span class="level-badge">Diagrama UML — Casos de Uso</span></div>
@@ -301,87 +133,27 @@
 
   <div class="system-boundary">
     <div class="boundary-label">SISTEMA CINESEARCH</div>
-
     <div class="uc-layout">
-
       <div class="actor-wrap">
         <div class="actor-figure">
           <div class="actor-head">👤</div>
           <div class="actor-body"></div>
           <div class="actor-arms"></div>
-          <div class="actor-legs">
-            <div class="actor-leg"></div>
-            <div class="actor-leg"></div>
-          </div>
+          <div class="actor-legs"><div class="actor-leg"></div><div class="actor-leg"></div></div>
         </div>
         <div class="actor-name">Usuário</div>
       </div>
-
       <div class="connections">
-        <div class="conn-line"></div>
-        <div class="conn-line"></div>
-        <div class="conn-line"></div>
-        <div class="conn-line"></div>
-        <div class="conn-line"></div>
-        <div class="conn-line"></div>
+        <div class="conn-line"></div><div class="conn-line"></div><div class="conn-line"></div>
+        <div class="conn-line"></div><div class="conn-line"></div><div class="conn-line"></div>
       </div>
-
       <div class="uc-list">
-
-        <div class="uc-item">
-          <span class="uc-code">UC01</span>
-          <span class="uc-icon">➕</span>
-          <div class="uc-text">
-            <div class="uc-name">Cadastrar Filme</div>
-            <div class="uc-desc">Preenche formulário com título, gênero, ano e sinopse</div>
-          </div>
-        </div>
-
-        <div class="uc-item">
-          <span class="uc-code">UC02</span>
-          <span class="uc-icon">🔍</span>
-          <div class="uc-text">
-            <div class="uc-name">Buscar Filme</div>
-            <div class="uc-desc">Digita termo e busca em título, gênero e sinopse</div>
-          </div>
-        </div>
-
-        <div class="uc-item">
-          <span class="uc-code">UC03</span>
-          <span class="uc-icon">🏷️</span>
-          <div class="uc-text">
-            <div class="uc-name">Filtrar por Gênero</div>
-            <div class="uc-desc">Clica em um chip de gênero para filtrar os filmes</div>
-          </div>
-        </div>
-
-        <div class="uc-item">
-          <span class="uc-code">UC04</span>
-          <span class="uc-icon">🎬</span>
-          <div class="uc-text">
-            <div class="uc-name">Ver Todos os Filmes</div>
-            <div class="uc-desc">Lista todos os filmes cadastrados no banco</div>
-          </div>
-        </div>
-
-        <div class="uc-item">
-          <span class="uc-code">UC05</span>
-          <span class="uc-icon">✏️</span>
-          <div class="uc-text">
-            <div class="uc-name">Editar Filme</div>
-            <div class="uc-desc">Altera os dados de um filme já cadastrado</div>
-          </div>
-        </div>
-
-        <div class="uc-item">
-          <span class="uc-code">UC06</span>
-          <span class="uc-icon">🗑️</span>
-          <div class="uc-text">
-            <div class="uc-name">Deletar Filme</div>
-            <div class="uc-desc">Remove permanentemente um filme do catálogo</div>
-          </div>
-        </div>
-
+        <div class="uc-item"><span class="uc-code">UC01</span><span class="uc-icon">➕</span><div class="uc-text"><div class="uc-name">Cadastrar Filme</div><div class="uc-desc">Preenche formulário com título, gênero, ano e sinopse</div></div></div>
+        <div class="uc-item"><span class="uc-code">UC02</span><span class="uc-icon">🔍</span><div class="uc-text"><div class="uc-name">Buscar Filme</div><div class="uc-desc">Digita termo e busca em título, gênero e sinopse</div></div></div>
+        <div class="uc-item"><span class="uc-code">UC03</span><span class="uc-icon">🏷️</span><div class="uc-text"><div class="uc-name">Filtrar por Gênero</div><div class="uc-desc">Clica em um chip de gênero para filtrar os filmes</div></div></div>
+        <div class="uc-item"><span class="uc-code">UC04</span><span class="uc-icon">🎬</span><div class="uc-text"><div class="uc-name">Ver Todos os Filmes</div><div class="uc-desc">Lista todos os filmes cadastrados no banco</div></div></div>
+        <div class="uc-item"><span class="uc-code">UC05</span><span class="uc-icon">✏️</span><div class="uc-text"><div class="uc-name">Editar Filme</div><div class="uc-desc">Altera os dados de um filme já cadastrado</div></div></div>
+        <div class="uc-item"><span class="uc-code">UC06</span><span class="uc-icon">🗑️</span><div class="uc-text"><div class="uc-name">Deletar Filme</div><div class="uc-desc">Remove permanentemente um filme do catálogo</div></div></div>
       </div>
     </div>
   </div>
@@ -394,73 +166,38 @@
   <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden">
     <table class="detail-table">
       <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Fluxo Principal</th>
-          <th>Camadas</th>
-        </tr>
+        <tr><th>ID</th><th>Nome</th><th>Fluxo Principal</th><th>Camadas</th></tr>
       </thead>
       <tbody>
         <tr>
-          <td>UC01</td>
-          <td>Cadastrar Filme</td>
+          <td>UC01</td><td>Cadastrar Filme</td>
           <td>Usuário preenche o formulário → Frontend valida os campos → Backend recebe via POST → Elasticsearch cria documento com _id automático</td>
-          <td>
-            <span class="tag tag-front">Front</span>
-            <span class="tag tag-back">Back</span>
-            <span class="tag tag-db">DB</span>
-          </td>
+          <td><span class="tag tag-front">Front</span> <span class="tag tag-back">Back</span> <span class="tag tag-db">DB</span></td>
         </tr>
         <tr>
-          <td>UC02</td>
-          <td>Buscar Filme</td>
+          <td>UC02</td><td>Buscar Filme</td>
           <td>Usuário digita termo → Frontend envia GET com ?q= → Backend monta query multi_match → Elasticsearch busca em 3 campos e retorna resultados</td>
-          <td>
-            <span class="tag tag-front">Front</span>
-            <span class="tag tag-back">Back</span>
-            <span class="tag tag-db">DB</span>
-          </td>
+          <td><span class="tag tag-front">Front</span> <span class="tag tag-back">Back</span> <span class="tag tag-db">DB</span></td>
         </tr>
         <tr>
-          <td>UC03</td>
-          <td>Filtrar por Gênero</td>
+          <td>UC03</td><td>Filtrar por Gênero</td>
           <td>Usuário clica no chip → Frontend preenche o campo de busca com o gênero → Mesmo fluxo do UC02 com o gênero como termo</td>
-          <td>
-            <span class="tag tag-front">Front</span>
-            <span class="tag tag-back">Back</span>
-            <span class="tag tag-db">DB</span>
-          </td>
+          <td><span class="tag tag-front">Front</span> <span class="tag tag-back">Back</span> <span class="tag tag-db">DB</span></td>
         </tr>
         <tr>
-          <td>UC04</td>
-          <td>Ver Todos</td>
+          <td>UC04</td><td>Ver Todos</td>
           <td>Usuário clica em "Ver Todos" → Frontend envia GET sem parâmetro → Backend usa match_all → Elasticsearch retorna todos os documentos</td>
-          <td>
-            <span class="tag tag-front">Front</span>
-            <span class="tag tag-back">Back</span>
-            <span class="tag tag-db">DB</span>
-          </td>
+          <td><span class="tag tag-front">Front</span> <span class="tag tag-back">Back</span> <span class="tag tag-db">DB</span></td>
         </tr>
         <tr>
-          <td>UC05</td>
-          <td>Editar Filme</td>
+          <td>UC05</td><td>Editar Filme</td>
           <td>Usuário clica em Editar → Formulário é preenchido com os dados → Usuário altera e salva → Backend envia PUT com o _id → Elasticsearch substitui o documento</td>
-          <td>
-            <span class="tag tag-front">Front</span>
-            <span class="tag tag-back">Back</span>
-            <span class="tag tag-db">DB</span>
-          </td>
+          <td><span class="tag tag-front">Front</span> <span class="tag tag-back">Back</span> <span class="tag tag-db">DB</span></td>
         </tr>
         <tr>
-          <td>UC06</td>
-          <td>Deletar Filme</td>
+          <td>UC06</td><td>Deletar Filme</td>
           <td>Usuário clica em Deletar → Frontend confirma a ação → Backend envia DELETE com o _id → Elasticsearch remove o documento permanentemente</td>
-          <td>
-            <span class="tag tag-front">Front</span>
-            <span class="tag tag-back">Back</span>
-            <span class="tag tag-db">DB</span>
-          </td>
+          <td><span class="tag tag-front">Front</span> <span class="tag tag-back">Back</span> <span class="tag tag-db">DB</span></td>
         </tr>
       </tbody>
     </table>
