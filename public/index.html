@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineSearch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #e50914;
+            --red-dark: #8b0000;
+            --red-glow: rgba(229, 9, 20, 0.3);
+            --bg: #080808;
+            --bg2: #111111;
+            --bg3: #1a1a1a;
+            --border: rgba(255,255,255,0.07);
+            --text: #f0f0f0;
+            --muted: #888;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        header {
+            position: relative;
+            padding: 60px 40px 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: var(--red);
+            box-shadow: 0 0 20px var(--red-glow);
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(48px, 8vw, 80px);
+            letter-spacing: 6px;
+            color: var(--text);
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo span {
+            color: var(--red);
+            text-shadow: 0 0 30px var(--red-glow);
+        }
+
+        .tagline {
+            color: var(--muted);
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 24px;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp 0.5s ease both;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        .card-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px;
+            letter-spacing: 2px;
+            color: var(--red);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title svg { width: 18px; height: 18px; fill: none; stroke: var(--red); stroke-width: 2; }
+
+        .field { margin-bottom: 14px; }
+
+        .field label {
+            display: block;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 11px 14px;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            appearance: none;
+        }
+
+        .field select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            cursor: pointer;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px var(--red-glow);
+        }
+
+        .field textarea { resize: vertical; min-height: 90px; }
+
+        .btn {
+            width: 100%;
+            padding: 13px;
+            background: var(--red);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            margin-top: 4px;
+        }
+
+        .btn:hover {
+            background: #ff1a25;
+            box-shadow: 0 4px 20px var(--red-glow);
+        }
+
+        .btn:active { transform: scale(0.98); }
+
+        .btn-cancelar {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .btn-cancelar:hover {
+            border-color: var(--muted);
+            color: var(--text);
+        }
+
+        .msg {
+            margin-top: 12px;
+            font-size: 13px;
+            text-align: center;
+            min-height: 20px;
+            color: #4ade80;
+        }
+
+        .msg.erro { color: #f87171; }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            animation: fadeUp 0.5s ease 0.1s both;
+        }
+
+        .search-bar input {
+            flex: 1;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 18px;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px var(--red-glow);
+        }
+
+        .search-bar input::placeholder { color: var(--muted); }
+
+        .btn-search {
+            padding: 14px 22px;
+            background: var(--red);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 17px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-search:hover {
+            background: #ff1a25;
+            box-shadow: 0 4px 20px var(--red-glow);
+        }
+
+        .btn-all {
+            padding: 14px 18px;
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-all:hover {
+            border-color: var(--red);
+            color: var(--text);
+        }
+
+        .genre-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            animation: fadeUp 0.5s ease 0.15s both;
+        }
+
+        .chip {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            font-size: 12px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .chip:hover, .chip.active {
+            background: var(--red);
+            border-color: var(--red);
+            color: white;
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            animation: fadeUp 0.5s ease 0.2s both;
+        }
+
+        .results-count {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .results-count span { color: var(--red); font-weight: 500; }
+
+        #resultados {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .filme {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px 24px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: start;
+            transition: border-color 0.2s, transform 0.2s;
+            animation: fadeUp 0.4s ease both;
+        }
+
+        .filme:hover {
+            border-color: rgba(229, 9, 20, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .filme-info h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px;
+            letter-spacing: 1px;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .filme-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .badge-genero {
+            background: rgba(229, 9, 20, 0.15);
+            border: 1px solid rgba(229, 9, 20, 0.3);
+            color: #ff6b6b;
+        }
+
+        .badge-ano {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        .filme-sinopse {
+            font-size: 13.5px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .filme-acoes {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .btn-editar {
+            padding: 6px 16px;
+            background: transparent;
+            border: 1px solid rgba(229, 9, 20, 0.5);
+            color: var(--red);
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        .btn-editar:hover {
+            background: rgba(229, 9, 20, 0.1);
+            border-color: var(--red);
+        }
+
+        .btn-deletar {
+            padding: 6px 16px;
+            background: rgba(229, 9, 20, 0.15);
+            border: 1px solid rgba(229, 9, 20, 0.3);
+            color: #ff6b6b;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        .btn-deletar:hover {
+            background: var(--red);
+            border-color: var(--red);
+            color: white;
+        }
+
+        .filme-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            color: var(--border);
+            line-height: 1;
+            letter-spacing: 2px;
+            user-select: none;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--muted);
+        }
+
+        .empty svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        .empty p { font-size: 14px; letter-spacing: 1px; }
+
+        .card.editando {
+            border-color: rgba(229, 9, 20, 0.4);
+        }
+
+        .card.editando::before { opacity: 1; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            header { padding: 40px 20px 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">CINE<span>SEARCH</span></div>
+    <p class="tagline">Catálogo de filmes com busca inteligente</p>
+</header>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <div class="card" id="formCard">
+            <div class="card-title">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                <span id="formTitulo">Cadastrar Filme</span>
+            </div>
+
+            <input type="hidden" id="editandoId" value="" />
+
+            <div class="field">
+                <label>Título</label>
+                <input type="text" id="titulo" placeholder="Ex: O Poderoso Chefão" />
+            </div>
+
+            <div class="field">
+                <label>Gênero</label>
+                <select id="genero">
+                    <option value="">Selecione...</option>
+                    <option>Ação</option>
+                    <option>Aventura</option>
+                    <option>Animação</option>
+                    <option>Comédia</option>
+                    <option>Crime</option>
+                    <option>Documentário</option>
+                    <option>Drama</option>
+                    <option>Fantasia</option>
+                    <option>Ficção Científica</option>
+                    <option>Horror</option>
+                    <option>Musical</option>
+                    <option>Romance</option>
+                    <option>Suspense</option>
+                    <option>Terror</option>
+                    <option>Western</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>Ano</label>
+                <input type="number" id="ano" placeholder="Ex: 1994" min="1900" max="2099" />
+            </div>
+
+            <div class="field">
+                <label>Sinopse</label>
+                <textarea id="sinopse" placeholder="Descreva o filme..."></textarea>
+            </div>
+
+            <button class="btn" id="btnSubmit" onclick="salvar()">CADASTRAR FILME</button>
+            <button class="btn-cancelar" id="btnCancelar" onclick="cancelarEdicao()">CANCELAR EDIÇÃO</button>
+            <p class="msg" id="msg"></p>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <div class="search-bar">
+            <input type="text" id="busca" placeholder="Buscar por título, gênero ou sinopse..."
+                onkeydown="if(event.key==='Enter') buscar()" />
+            <button class="btn-search" onclick="buscar()">BUSCAR</button>
+            <button class="btn-all" onclick="buscar('')">VER TODOS</button>
+        </div>
+
+        <div class="genre-chips">
+            <button class="chip" onclick="buscarGenero(this, 'Ação')">Ação</button>
+            <button class="chip" onclick="buscarGenero(this, 'Aventura')">Aventura</button>
+            <button class="chip" onclick="buscarGenero(this, 'Comédia')">Comédia</button>
+            <button class="chip" onclick="buscarGenero(this, 'Crime')">Crime</button>
+            <button class="chip" onclick="buscarGenero(this, 'Drama')">Drama</button>
+            <button class="chip" onclick="buscarGenero(this, 'Fantasia')">Fantasia</button>
+            <button class="chip" onclick="buscarGenero(this, 'Ficção Científica')">Ficção Científica</button>
+            <button class="chip" onclick="buscarGenero(this, 'Horror')">Horror</button>
+            <button class="chip" onclick="buscarGenero(this, 'Romance')">Romance</button>
+            <button class="chip" onclick="buscarGenero(this, 'Terror')">Terror</button>
+        </div>
+
+        <div class="results-header">
+            <p class="results-count" id="contador"></p>
+        </div>
+
+        <div id="resultados">
+            <div class="empty">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <p>Busque um filme ou clique em "Ver Todos"</p>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script>
+    async function salvar() {
+        const id = document.getElementById('editandoId').value
+        if (id) {
+            await atualizarFilme(id)
+        } else {
+            await cadastrar()
+        }
+    }
+
+    async function cadastrar() {
+        const titulo = document.getElementById('titulo').value.trim()
+        const genero = document.getElementById('genero').value
+        const ano = document.getElementById('ano').value
+        const sinopse = document.getElementById('sinopse').value.trim()
+        const msg = document.getElementById('msg')
+
+        if (!titulo || !genero || !ano || !sinopse) {
+            msg.textContent = 'Preencha todos os campos!'
+            msg.className = 'msg erro'
+            return
+        }
+
+        try {
+            // ✅ Caminho relativo — funciona em localhost e no Render
+            const res = await fetch('/filmes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ titulo, genero, ano, sinopse })
+            })
+            const data = await res.json()
+            msg.textContent = data.mensagem || data.erro
+            msg.className = data.mensagem ? 'msg' : 'msg erro'
+
+            if (data.mensagem) {
+                limparFormulario()
+                buscar('')
+            }
+        } catch (err) {
+            msg.textContent = 'Erro ao conectar com o servidor'
+            msg.className = 'msg erro'
+        }
+    }
+
+    async function atualizarFilme(id) {
+        const titulo = document.getElementById('titulo').value.trim()
+        const genero = document.getElementById('genero').value
+        const ano = document.getElementById('ano').value
+        const sinopse = document.getElementById('sinopse').value.trim()
+        const msg = document.getElementById('msg')
+
+        if (!titulo || !genero || !ano || !sinopse) {
+            msg.textContent = 'Preencha todos os campos!'
+            msg.className = 'msg erro'
+            return
+        }
+
+        try {
+            // ✅ Caminho relativo — funciona em localhost e no Render
+            const res = await fetch(`/filmes/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ titulo, genero, ano, sinopse })
+            })
+            const data = await res.json()
+            msg.textContent = data.mensagem || data.erro
+            msg.className = data.mensagem ? 'msg' : 'msg erro'
+
+            if (data.mensagem) {
+                cancelarEdicao()
+                buscar('')
+            }
+        } catch (err) {
+            msg.textContent = 'Erro ao conectar com o servidor'
+            msg.className = 'msg erro'
+        }
+    }
+
+    function editarFilme(id, titulo, genero, ano, sinopse) {
+        document.getElementById('editandoId').value = id
+        document.getElementById('titulo').value = titulo
+        document.getElementById('genero').value = genero
+        document.getElementById('ano').value = ano
+        document.getElementById('sinopse').value = sinopse
+
+        document.getElementById('formTitulo').textContent = 'Editar Filme'
+        document.getElementById('btnSubmit').textContent = 'SALVAR EDIÇÃO'
+        document.getElementById('btnCancelar').style.display = 'block'
+        document.getElementById('formCard').classList.add('editando')
+        document.getElementById('msg').textContent = ''
+
+        document.querySelector('.sidebar').scrollIntoView({ behavior: 'smooth' })
+    }
+
+    function cancelarEdicao() {
+        limparFormulario()
+        document.getElementById('editandoId').value = ''
+        document.getElementById('formTitulo').textContent = 'Cadastrar Filme'
+        document.getElementById('btnSubmit').textContent = 'CADASTRAR FILME'
+        document.getElementById('btnCancelar').style.display = 'none'
+        document.getElementById('formCard').classList.remove('editando')
+        document.getElementById('msg').textContent = ''
+    }
+
+    function limparFormulario() {
+        document.getElementById('titulo').value = ''
+        document.getElementById('genero').value = ''
+        document.getElementById('ano').value = ''
+        document.getElementById('sinopse').value = ''
+    }
+
+    async function deletarFilme(id, titulo) {
+        if (!confirm(`Deletar "${titulo}"?`)) return
+        try {
+            // ✅ Caminho relativo — funciona em localhost e no Render
+            const res = await fetch(`/filmes/${id}`, { method: 'DELETE' })
+            const data = await res.json()
+            if (data.mensagem) buscar('')
+        } catch (err) {
+            alert('Erro ao deletar filme')
+        }
+    }
+
+    function buscarGenero(el, genero) {
+        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'))
+        el.classList.add('active')
+        document.getElementById('busca').value = genero
+        buscar()
+    }
+
+    async function buscar(termo) {
+        const q = termo !== undefined ? termo : document.getElementById('busca').value
+        if (termo === '') document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'))
+
+        try {
+            // ✅ Caminho relativo — funciona em localhost e no Render
+            const res = await fetch(`/filmes?q=${encodeURIComponent(q)}`)
+            const filmes = await res.json()
+            const div = document.getElementById('resultados')
+            const contador = document.getElementById('contador')
+
+            contador.innerHTML = `<span>${filmes.length}</span> filme${filmes.length !== 1 ? 's' : ''} encontrado${filmes.length !== 1 ? 's' : ''}`
+
+            if (filmes.length === 0) {
+                div.innerHTML = `
+                    <div class="empty">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                        </svg>
+                        <p>Nenhum filme encontrado para "<strong>${q}</strong>"</p>
+                    </div>`
+                return
+            }
+
+            div.innerHTML = filmes.map((f, i) => `
+                <div class="filme" style="animation-delay:${i * 0.05}s">
+                    <div class="filme-info">
+                        <h3>${f.titulo}</h3>
+                        <div class="filme-meta">
+                            ${f.genero ? `<span class="badge badge-genero">${f.genero}</span>` : ''}
+                            ${f.ano ? `<span class="badge badge-ano">${f.ano}</span>` : ''}
+                        </div>
+                        <p class="filme-sinopse">${f.sinopse || ''}</p>
+                        <div class="filme-acoes">
+                            <button class="btn-editar" onclick="editarFilme('${f._id}', \`${f.titulo}\`, \`${f.genero}\`, \`${f.ano}\`, \`${f.sinopse}\`)">EDITAR</button>
+                            <button class="btn-deletar" onclick="deletarFilme('${f._id}', \`${f.titulo}\`)">DELETAR</button>
+                        </div>
+                    </div>
+                    <div class="filme-num">${String(i + 1).padStart(2, '0')}</div>
+                </div>
+            `).join('')
+        } catch (err) {
+            document.getElementById('resultados').innerHTML = '<div class="empty"><p>Erro ao buscar filmes</p></div>'
+        }
+    }
+</script>
+
+</body>
+</html>
