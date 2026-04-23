@@ -98,7 +98,7 @@ app.post('/usuarios/registro', async (req, res) => {
         // try/catch interno trata o caso do índice não existir ainda (primeiro usuário)
         try {
             const buscaEmail = await axios.post(`${BONSAI_URL}/usuarios/_search`, {
-                query: { match: { email } }
+                query: { term: { "email.keyword": email.toLowerCase() } }
             })
             if (buscaEmail.data.hits.total.value > 0) {
                 console.log(`[REGISTRO] ❌ Email já cadastrado: ${email}`)
@@ -146,7 +146,7 @@ app.post('/usuarios/login', async (req, res) => {
 
         // Busca o usuário pelo email
         const resultado = await axios.post(`${BONSAI_URL}/usuarios/_search`, {
-            query: { match: { email } }
+            query: { term: { "email.keyword": email.toLowerCase() } }
         })
 
         if (resultado.data.hits.total.value === 0) {
