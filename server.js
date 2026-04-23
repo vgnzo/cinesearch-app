@@ -26,6 +26,22 @@ const BONSAI_URL  = 'https://2dbbdeb71e:f26ae00b5e4985883a9b@projeto-carioca-1nt
 const JWT_SECRET  = 'cinesearch_secret_2024' // 🆕 Chave para assinar os tokens JWT
 
 // ---------------------------------------------------------------
+// 🆕 HELPER — garante que o índice existe antes de inserir
+// O Bonsai não cria índices automaticamente em todas as versões
+// ---------------------------------------------------------------
+async function garantirIndice(nome) {
+    try {
+        await axios.head(`${BONSAI_URL}/${nome}`)
+    } catch (err) {
+        if (err.response && err.response.status === 404) {
+            console.log(`[ÍNDICE] Criando índice "${nome}"...`)
+            await axios.put(`${BONSAI_URL}/${nome}`)
+            console.log(`[ÍNDICE] ✅ Índice "${nome}" criado`)
+        }
+    }
+}
+
+// ---------------------------------------------------------------
 // 🆕 GÊNEROS VÁLIDOS — regra de negócio
 // ---------------------------------------------------------------
 const GENEROS_VALIDOS = [
@@ -98,6 +114,7 @@ app.post('/usuarios/registro', async (req, res) => {
         console.log(`[REGISTRO] 🔐 Senha criptografada com bcrypt (salt: 10)`)
 
         // Salva o usuário no Elasticsearch
+        await garantirIndice('usuarios')
         const resultado = await axios.post(`${BONSAI_URL}/usuarios/_doc`, {
             nome,
             email,
@@ -212,16 +229,22 @@ app.post('/filmes', autenticar, async (req, res) => {
         }
 
         // 🆕 Verifica se já existe um filme com o mesmo título
-        const buscaDuplicado = await axios.post(`${BONSAI_URL}/filmes/_search`, {
-            query: { match_phrase: { titulo: titulo.trim() } }
-        })
-
-        if (buscaDuplicado.data.hits.total.value > 0) {
-            console.log(`[CADASTRO] ❌ Título duplicado: "${titulo}"`)
-            return res.status(400).json({ erro: 'Já existe um filme cadastrado com este título.' })
+        // try/catch interno trata o caso do índice não existir ainda
+        try {
+            const buscaDuplicado = await axios.post(`${BONSAI_URL}/filmes/_search`, {
+                query: { match_phrase: { titulo: titulo.trim() } }
+            })
+            if (buscaDuplicado.data.hits.total.value > 0) {
+                console.log(`[CADASTRO] ❌ Título duplicado: "${titulo}"`)
+                return res.status(400).json({ erro: 'Já existe um filme cadastrado com este título.' })
+            }
+        } catch (errBusca) {
+            // Índice ainda não existe — primeiro filme, pode continuar
+            console.log('[CADASTRO] Índice filmes ainda não existe, criando...')
         }
 
         // 🆕 Salva o filme com o autor_id (quem cadastrou)
+        await garantirIndice('filmes')
         await axios.post(`${BONSAI_URL}/filmes/_doc`, {
             titulo: titulo.trim(),
             genero,
