@@ -79,13 +79,18 @@ app.post('/usuarios/registro', async (req, res) => {
         }
 
         // Verifica se o email já está cadastrado
-        const buscaEmail = await axios.post(`${BONSAI_URL}/usuarios/_search`, {
-            query: { match: { email } }
-        })
-
-        if (buscaEmail.data.hits.total.value > 0) {
-            console.log(`[REGISTRO] ❌ Email já cadastrado: ${email}`)
-            return res.status(400).json({ erro: 'Este email já está cadastrado.' })
+        // try/catch interno trata o caso do índice não existir ainda (primeiro usuário)
+        try {
+            const buscaEmail = await axios.post(`${BONSAI_URL}/usuarios/_search`, {
+                query: { match: { email } }
+            })
+            if (buscaEmail.data.hits.total.value > 0) {
+                console.log(`[REGISTRO] ❌ Email já cadastrado: ${email}`)
+                return res.status(400).json({ erro: 'Este email já está cadastrado.' })
+            }
+        } catch (errBusca) {
+            // Índice ainda não existe — primeiro usuário, pode continuar
+            console.log('[REGISTRO] Índice usuarios ainda não existe, criando...')
         }
 
         // Criptografa a senha antes de salvar
