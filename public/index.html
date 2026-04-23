@@ -478,10 +478,7 @@
 
         .empty p { font-size: 14px; letter-spacing: 1px; }
 
-        .card.editando {
-            border-color: rgba(229, 9, 20, 0.4);
-        }
-
+        .card.editando { border-color: rgba(229, 9, 20, 0.4); }
         .card.editando::before { opacity: 1; }
 
         @keyframes fadeUp {
@@ -489,10 +486,109 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ── NAV ── */
+        .header-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .nav-link {
+            padding: 6px 18px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--muted);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            border-color: var(--red);
+            color: var(--text);
+        }
+
+        /* ── RESPONSIVO MOBILE ── */
         @media (max-width: 768px) {
-            .container { grid-template-columns: 1fr; }
+            header { padding: 36px 20px 28px; }
+
+            .tagline { font-size: 11px; letter-spacing: 2px; }
+
+            .container {
+                grid-template-columns: 1fr;
+                padding: 24px 16px;
+                gap: 24px;
+            }
+
             .sidebar { position: static; }
-            header { padding: 40px 20px 30px; }
+
+            /* Barra de busca: input em cima, botões embaixo lado a lado */
+            .search-bar {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .search-bar input {
+                width: 100%;
+                font-size: 16px; /* evita zoom automático no iOS */
+            }
+
+            .search-bar-buttons {
+                display: flex;
+                gap: 8px;
+            }
+
+            .btn-search {
+                flex: 1;
+                padding: 13px;
+                font-size: 15px;
+            }
+
+            .btn-all {
+                flex: 1;
+                padding: 13px;
+                font-size: 13px;
+                text-align: center;
+            }
+
+            /* Chips de gênero menores */
+            .chip {
+                padding: 5px 12px;
+                font-size: 11px;
+            }
+
+            /* Card de filme: esconde o número decorativo no mobile */
+            .filme-num { display: none; }
+
+            .filme {
+                grid-template-columns: 1fr;
+                padding: 18px;
+            }
+
+            .filme-info h3 { font-size: 20px; }
+
+            /* Botões editar/deletar maiores no touch */
+            .btn-editar,
+            .btn-deletar {
+                padding: 8px 18px;
+                font-size: 13px;
+            }
+
+            /* Inputs maiores para toque */
+            .field input,
+            .field select,
+            .field textarea {
+                font-size: 16px; /* evita zoom automático no iOS */
+                padding: 13px 14px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .logo { letter-spacing: 3px; }
+            .container { padding: 20px 12px; }
         }
     </style>
 </head>
@@ -501,6 +597,10 @@
 <header>
     <div class="logo">CINE<span>SEARCH</span></div>
     <p class="tagline">Catálogo de filmes com busca inteligente</p>
+    <nav class="header-nav">
+        <a href="/casos-de-uso.html" class="nav-link">Casos de Uso</a>
+        <a href="/c4-model.html" class="nav-link">Diagrama C4</a>
+    </nav>
 </header>
 
 <div class="container">
@@ -562,8 +662,10 @@
         <div class="search-bar">
             <input type="text" id="busca" placeholder="Buscar por título, gênero ou sinopse..."
                 onkeydown="if(event.key==='Enter') buscar()" />
-            <button class="btn-search" onclick="buscar()">BUSCAR</button>
-            <button class="btn-all" onclick="buscar('')">VER TODOS</button>
+            <div class="search-bar-buttons">
+                <button class="btn-search" onclick="buscar()">BUSCAR</button>
+                <button class="btn-all" onclick="buscar('')">VER TODOS</button>
+            </div>
         </div>
 
         <div class="genre-chips">
@@ -598,11 +700,7 @@
 <script>
     async function salvar() {
         const id = document.getElementById('editandoId').value
-        if (id) {
-            await atualizarFilme(id)
-        } else {
-            await cadastrar()
-        }
+        if (id) { await atualizarFilme(id) } else { await cadastrar() }
     }
 
     async function cadastrar() {
@@ -619,7 +717,6 @@
         }
 
         try {
-            // ✅ Caminho relativo — funciona em localhost e no Render
             const res = await fetch('/filmes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -628,11 +725,7 @@
             const data = await res.json()
             msg.textContent = data.mensagem || data.erro
             msg.className = data.mensagem ? 'msg' : 'msg erro'
-
-            if (data.mensagem) {
-                limparFormulario()
-                buscar('')
-            }
+            if (data.mensagem) { limparFormulario(); buscar('') }
         } catch (err) {
             msg.textContent = 'Erro ao conectar com o servidor'
             msg.className = 'msg erro'
@@ -653,7 +746,6 @@
         }
 
         try {
-            // ✅ Caminho relativo — funciona em localhost e no Render
             const res = await fetch(`/filmes/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -662,11 +754,7 @@
             const data = await res.json()
             msg.textContent = data.mensagem || data.erro
             msg.className = data.mensagem ? 'msg' : 'msg erro'
-
-            if (data.mensagem) {
-                cancelarEdicao()
-                buscar('')
-            }
+            if (data.mensagem) { cancelarEdicao(); buscar('') }
         } catch (err) {
             msg.textContent = 'Erro ao conectar com o servidor'
             msg.className = 'msg erro'
@@ -679,13 +767,11 @@
         document.getElementById('genero').value = genero
         document.getElementById('ano').value = ano
         document.getElementById('sinopse').value = sinopse
-
         document.getElementById('formTitulo').textContent = 'Editar Filme'
         document.getElementById('btnSubmit').textContent = 'SALVAR EDIÇÃO'
         document.getElementById('btnCancelar').style.display = 'block'
         document.getElementById('formCard').classList.add('editando')
         document.getElementById('msg').textContent = ''
-
         document.querySelector('.sidebar').scrollIntoView({ behavior: 'smooth' })
     }
 
@@ -709,13 +795,10 @@
     async function deletarFilme(id, titulo) {
         if (!confirm(`Deletar "${titulo}"?`)) return
         try {
-            // ✅ Caminho relativo — funciona em localhost e no Render
             const res = await fetch(`/filmes/${id}`, { method: 'DELETE' })
             const data = await res.json()
             if (data.mensagem) buscar('')
-        } catch (err) {
-            alert('Erro ao deletar filme')
-        }
+        } catch (err) { alert('Erro ao deletar filme') }
     }
 
     function buscarGenero(el, genero) {
@@ -730,7 +813,6 @@
         if (termo === '') document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'))
 
         try {
-            // ✅ Caminho relativo — funciona em localhost e no Render
             const res = await fetch(`/filmes?q=${encodeURIComponent(q)}`)
             const filmes = await res.json()
             const div = document.getElementById('resultados')
