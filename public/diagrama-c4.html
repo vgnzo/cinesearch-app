@@ -82,7 +82,6 @@
   .method-del  { background: rgba(229,9,20,0.15);   color: #f87171; }
   .comp-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
 
-  /* 🆕 secção de auth separada visualmente */
   .auth-section-title { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 3px; color: #60a5fa; margin: 20px 0 12px; text-align: center; }
 
   .flow-table { width: 100%; border-collapse: collapse; font-size: 13px; }
@@ -139,8 +138,8 @@
     </div>
     <div class="ext-box">
       <div class="icon">🔍</div>
-      <div class="name">Bonsai / OpenSearch</div>
-      <div class="desc">Banco de dados na nuvem (AWS) — índices: filmes + usuarios</div>
+      <div class="name">Elastic Cloud</div>
+      <div class="desc">Banco de dados na nuvem (GCP) — índices: filmes + usuarios</div>
     </div>
   </div>
 
@@ -183,7 +182,7 @@
     </div>
     <div class="container-card database">
       <div class="c-icon">🗄️</div>
-      <div class="c-tech">OpenSearch 2.19 (Bonsai)</div>
+      <div class="c-tech">Elasticsearch (Elastic Cloud)</div>
       <div class="c-name">Banco de Dados</div>
       <div class="c-desc">
         Índice <strong style="color:#4ade80">filmes</strong> — documentos com autor_id.<br>
@@ -202,7 +201,6 @@
   <div class="component-wrap">
     <div class="component-title">server.js — Rotas da API REST</div>
 
-    <!-- Rotas de filmes -->
     <div class="components-grid">
       <div class="comp">
         <div class="comp-icon">➕</div>
@@ -242,7 +240,6 @@
       </div>
     </div>
 
-    <!-- 🆕 Rotas de autenticação -->
     <div class="auth-section-title">🔐 Rotas de Autenticação</div>
     <div class="components-grid">
       <div class="comp">
@@ -287,7 +284,7 @@
         <tr><td>7</td><td>Frontend → Backend</td><td>POST /filmes com token no header Authorization: Bearer &lt;token&gt;</td><td>fetch API</td></tr>
         <tr><td>8</td><td>Backend</td><td>Middleware autenticar() verifica o JWT e injeta dados do usuário</td><td>jsonwebtoken</td></tr>
         <tr><td>9</td><td>Backend</td><td>Valida campos, verifica título duplicado, salva com autor_id</td><td>Express.js + Axios</td></tr>
-        <tr><td>10</td><td>Elasticsearch</td><td>Cria documento no índice "filmes" com _id automático</td><td>OpenSearch 2.19</td></tr>
+        <tr><td>10</td><td>Elastic Cloud</td><td>Cria documento no índice "filmes" com _id automático</td><td>Elasticsearch</td></tr>
         <tr><td>11</td><td>Backend → Frontend</td><td>Retorna { mensagem: "Filme cadastrado com sucesso!" }</td><td>res.json()</td></tr>
         <tr><td>12</td><td>Frontend</td><td>Atualiza a lista de filmes — botões editar/deletar visíveis só pro dono</td><td>JS DOM</td></tr>
       </tbody>
