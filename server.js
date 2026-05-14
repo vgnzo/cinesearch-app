@@ -22,7 +22,7 @@ app.use(express.static('public'))
 // ---------------------------------------------------------------
 // CONEXÃO COM O ELASTICSEARCH (Bonsai)
 // ---------------------------------------------------------------
-const BONSAI_URL  = 'https://2dbbdeb71e:f26ae00b5e4985883a9b@projeto-carioca-1ntc3trw.us-east-1.bonsaisearch.net'
+const BONSAI_URL  = 'https://elastic:SUA_SENHA@e298adb59c294d7aa5890eccbafc3128.us-central1.gcp.cloud.es.io:443';
 const JWT_SECRET  = 'cinesearch_secret_2024' // 🆕 Chave para assinar os tokens JWT
 
 // ---------------------------------------------------------------
