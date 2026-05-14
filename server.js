@@ -1,8 +1,8 @@
 // =============================================================
 // CINESEARCH — Backend (Node.js + Express)
 // Responsável por receber as requisições do Frontend e
-// se comunicar com o banco de dados Elasticsearch (Bonsai).
-// =============================================================
+// se comunicar com o banco de dados Elasticsearch (Elastic Cloud).
+// // =============================================================
 
 const express = require('express')
 const cors    = require('cors')
@@ -20,9 +20,9 @@ app.use(express.json())
 app.use(express.static('public'))
 
 // ---------------------------------------------------------------
-// CONEXÃO COM O ELASTICSEARCH (Bonsai)
-// ---------------------------------------------------------------
-const BONSAI_URL  = 'https://elastic:SUA_SENHA@e298adb59c294d7aa5890eccbafc3128.us-central1.gcp.cloud.es.io:443';
+// CONEXÃO COM O ELASTICSEARCH (Elastic Cloud)
+// // ---------------------------------------------------------------
+const ES_URL  = 'https://elastic:SUA_SENHA@e298adb59c294d7aa5890eccbafc3128.us-central1.gcp.cloud.es.io:443';
 const JWT_SECRET  = 'cinesearch_secret_2024' // 🆕 Chave para assinar os tokens JWT
 
 // ---------------------------------------------------------------
@@ -31,11 +31,11 @@ const JWT_SECRET  = 'cinesearch_secret_2024' // 🆕 Chave para assinar os token
 // ---------------------------------------------------------------
 async function garantirIndice(nome) {
     try {
-        await axios.head(`${BONSAI_URL}/${nome}`)
+        await axios.head(`${ES_URL}/${nome}`)
     } catch (err) {
         if (err.response && err.response.status === 404) {
             console.log(`[ÍNDICE] Criando índice "${nome}"...`)
-            await axios.put(`${BONSAI_URL}/${nome}`)
+            await axios.put(`${ES_URL}/${nome}`)
             console.log(`[ÍNDICE] ✅ Índice "${nome}" criado`)
         }
     }
@@ -97,7 +97,7 @@ app.post('/usuarios/registro', async (req, res) => {
         // Verifica se o email já está cadastrado
         // try/catch interno trata o caso do índice não existir ainda (primeiro usuário)
         try {
-            const buscaEmail = await axios.post(`${BONSAI_URL}/usuarios/_search`, {
+            const buscaEmail = await axios.post(`${ES_URL}/usuarios/_search`, {
                 query: { term: { "email.keyword": email.toLowerCase() } }
             })
             if (buscaEmail.data.hits.total.value > 0) {
@@ -115,7 +115,7 @@ app.post('/usuarios/registro', async (req, res) => {
 
         // Salva o usuário no Elasticsearch
         await garantirIndice('usuarios')
-        const resultado = await axios.post(`${BONSAI_URL}/usuarios/_doc`, {
+        const resultado = await axios.post(`${ES_URL}/usuarios/_doc`, {
             nome,
             email,
             senha: senhaHash,
@@ -145,7 +145,7 @@ app.post('/usuarios/login', async (req, res) => {
         }
 
         // Busca o usuário pelo email
-        const resultado = await axios.post(`${BONSAI_URL}/usuarios/_search`, {
+        const resultado = await axios.post(`${ES_URL}/usuarios/_search`, {
             query: { term: { "email.keyword": email.toLowerCase() } }
         })
 
@@ -231,7 +231,7 @@ app.post('/filmes', autenticar, async (req, res) => {
         // 🆕 Verifica se já existe um filme com o mesmo título
         // try/catch interno trata o caso do índice não existir ainda
         try {
-            const buscaDuplicado = await axios.post(`${BONSAI_URL}/filmes/_search`, {
+            const buscaDuplicado = await axios.post(`${ES_URL}/filmes/_search`, {
                 query: { match_phrase: { titulo: titulo.trim() } }
             })
             if (buscaDuplicado.data.hits.total.value > 0) {
@@ -245,7 +245,7 @@ app.post('/filmes', autenticar, async (req, res) => {
 
         // 🆕 Salva o filme com o autor_id (quem cadastrou)
         await garantirIndice('filmes')
-        await axios.post(`${BONSAI_URL}/filmes/_doc`, {
+        await axios.post(`${ES_URL}/filmes/_doc`, {
             titulo: titulo.trim(),
             genero,
             sinopse: sinopse.trim(),
@@ -277,7 +277,7 @@ app.get('/filmes', async (req, res) => {
             multi_match: { query: q, fields: ['titulo', 'genero', 'sinopse'] }
         } : { match_all: {} }
 
-        const resultado = await axios.post(`${BONSAI_URL}/filmes/_search`, { query })
+        const resultado = await axios.post(`${ES_URL}/filmes/_search`, { query })
         const filmes = resultado.data.hits.hits.map(h => ({ _id: h._id, ...h._source }))
 
         console.log(`[BUSCA] ✅ ${filmes.length} filme(s) encontrado(s)`)
@@ -319,7 +319,7 @@ app.put('/filmes/:id', autenticar, async (req, res) => {
         }
 
         // 🆕 Busca o filme para verificar se o usuário é o dono
-        const filmeAtual = await axios.get(`${BONSAI_URL}/filmes/_doc/${id}`)
+        const filmeAtual = await axios.get(`${ES_URL}/filmes/_doc/${id}`)
         const dono = filmeAtual.data._source.autor_id
 
         if (dono !== req.usuario.id) {
@@ -328,7 +328,7 @@ app.put('/filmes/:id', autenticar, async (req, res) => {
         }
 
         // Atualiza mantendo o autor original
-        await axios.put(`${BONSAI_URL}/filmes/_doc/${id}`, {
+        await axios.put(`${ES_URL}/filmes/_doc/${id}`, {
             titulo: titulo.trim(),
             genero,
             sinopse: sinopse.trim(),
@@ -358,7 +358,7 @@ app.delete('/filmes/:id', autenticar, async (req, res) => {
         console.log(`[DELETAR] Filme id: ${id} — usuário: ${req.usuario.nome}`)
 
         // 🆕 Busca o filme para verificar se o usuário é o dono
-        const filmeAtual = await axios.get(`${BONSAI_URL}/filmes/_doc/${id}`)
+        const filmeAtual = await axios.get(`${ES_URL}/filmes/_doc/${id}`)
         const dono = filmeAtual.data._source.autor_id
 
         if (dono !== req.usuario.id) {
@@ -366,7 +366,7 @@ app.delete('/filmes/:id', autenticar, async (req, res) => {
             return res.status(403).json({ erro: 'Você só pode deletar filmes que você cadastrou.' })
         }
 
-        await axios.delete(`${BONSAI_URL}/filmes/_doc/${id}`)
+        await axios.delete(`${ES_URL}/filmes/_doc/${id}`)
 
         console.log(`[DELETAR] ✅ Filme id: ${id} deletado por ${req.usuario.nome}`)
         res.json({ mensagem: 'Filme deletado com sucesso!' })
