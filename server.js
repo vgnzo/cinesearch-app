@@ -22,7 +22,7 @@ app.use(express.static('public'))
 // ---------------------------------------------------------------
 // CONEXÃO COM O ELASTICSEARCH (Elastic Cloud)
 // // ---------------------------------------------------------------
-const ES_URL  = 'https://elastic:SUA_SENHA@e298adb59c294d7aa5890eccbafc3128.us-central1.gcp.cloud.es.io:443';
+const ES_URL = 'https://elastic:tsMmKHJEsXihEKUcevPrJs1p@e298adb59c294d7aa5890eccbafc3128.us-central1.gcp.cloud.es.io:443'
 const JWT_SECRET  = 'cinesearch_secret_2024' // 🆕 Chave para assinar os tokens JWT
 
 // ---------------------------------------------------------------
