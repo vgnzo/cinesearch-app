@@ -27,7 +27,6 @@ const JWT_SECRET  = 'cinesearch_secret_2024' // 🆕 Chave para assinar os token
 
 // ---------------------------------------------------------------
 // 🆕 HELPER — garante que o índice existe antes de inserir
-// O Bonsai não cria índices automaticamente em todas as versões
 // ---------------------------------------------------------------
 async function garantirIndice(nome) {
     try {
